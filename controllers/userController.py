@@ -1,14 +1,12 @@
-from flask_sqlalchemy import SQLAlchemy
+from db import db
 from flask import render_template, redirect, url_for, request, abort
-from models import User
-
-db = SQLAlchemy()
+from models.User import User
 
 def create():
     return render_template("userController.html")
 
-def edit():
-    return render_template("edit.html")
+def edit(user_id):
+    return render_template("User/edit.html", user = db.session.get_one(User, user_id))
 
 # class CRUDOperations:
 #     def create(self, username, email):

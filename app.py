@@ -1,6 +1,8 @@
 import flask
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
+from db import db
 # from flask import render_template
+# from sqlalchemy.orm import sessionmaker
 from routes.app_bp import app_bp
 from routes.user_bp import user_bp
 import os
@@ -12,10 +14,9 @@ app = flask.Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mssql+pyodbc:///?odbc_connect={os.getenv('DB_CONNECT_URL')}"
 # app.config.from_object('config') # look into this type of config
 
-# db.init_app(app) # look into db migrations
-# migrate = Migrate(app, db)
-
-db = SQLAlchemy(app)
+# db = db(app)
+db.init_app(app) # apparently does same as line above
+# migrate = Migrate(app, db) # look into db migrations
 
 with app.app_context():
     try:

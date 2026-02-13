@@ -1,0 +1,22 @@
+{% extends "base_logged_in.html" %}
+{% block title %}{% endblock %}
+{% block nav_bar %}
+
+    <ol>
+        <li><a>Home</a></li>
+        <li><a>Settings</a></li>
+        <li><a>Logout</a></li>
+    </ol>
+
+{% endblock %}
+
+{% block main %}
+
+<h1>User Edit</h1>
+<p>Hello {{ user.name }}!</p>
+
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+{% endblock %}
