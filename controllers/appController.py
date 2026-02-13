@@ -1,8 +1,8 @@
 # from app import app
 from flask import render_template
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
+# db = SQLAlchemy()
 
 def login():
     return render_template('App/Login.html') # make this
