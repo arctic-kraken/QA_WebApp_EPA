@@ -15,7 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f"mssql+pyodbc:///?odbc_connect={os.gete
 
 # db = db(app) # apparently does same as line above
 db.init_app(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app, db) # CONTINUE TRYING TO DO MIGRATIONS; do the live db upgrade with a production db uri
 
 with app.app_context():
     try:
