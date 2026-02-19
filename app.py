@@ -10,8 +10,10 @@ import os
 app = flask.Flask(__name__)
 
 # create a .env file with the vars, because it is git ignored
-app.config['SQLALCHEMY_DATABASE_URI'] = f"mssql+pyodbc:///?odbc_connect={os.getenv('DB_CONNECT_URL')}"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mssql+pyodbc:///?odbc_connect={os.environ.get('DB_CONNECT_URL')}"
 # app.config.from_object('config') # look into this type of config
+
+app.secret_key = os.environ.get('SECRET_KEY')
 
 # db = db(app) # apparently does same as line above
 db.init_app(app)

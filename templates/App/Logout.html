@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Log In{% endblock %}
+{% block nav_bar %}{% endblock %}
+
+{% block main %}
+
+<h1>You have been logged out</h1>
+
+<p>
+    You can <a href="/login">log back in</a> if you wish. <br>
+    You can also go back to the <a href="/">landing</a> page.
+</p>
+
+{% endblock %}
+
+{% block footer %} {{ super() }} {% endblock %}

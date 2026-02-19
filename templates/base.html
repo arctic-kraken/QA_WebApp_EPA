@@ -4,11 +4,30 @@
     {% block head %}
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     {% endblock %}
 </head>
 <body>
     <nav>
         {% block nav_bar %}
+
+        {% if session['uuid'] %}
+        <div>
+            <a href="/user"><div>Settings</div></a>
+            <a href="/logout">Logout</a>
+        </div>
+
+        <div>
+
+
+            <a href="/user"><div>Settings</div></a>
+            <a href="/logout">Logout</a>
+        </div>
+
+        {% else %}
+
+        {% endif %}
+
         {% endblock %}
     </nav>
     <main>

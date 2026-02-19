@@ -1,0 +1,105 @@
+@property --main-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #5546FA
+}
+
+@property --secondary-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #F5FAFF
+}
+
+
+@property --charcoal-black {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #060613
+}
+/* https://fonts.google.com/selection?lang=en_Latn&script=Latn&categoryFilters=Feeling:%2FExpressive%2FBusiness;Appearance:%2FTheme%2FTechno */
+/*.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}*/
+
+@font-face {
+    font-family: "Kanit";
+    font-weight: 400;
+    font-style: normal;
+    src: url('/static/fonts/Kanit-Regular.ttf') format('truetype');
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary-color);
+    font-family: Kanit, Tahoma, Verdana, sans-serif;
+    color: var(--charcoal-black);
+    margin: 0px;
+}
+
+nav {
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+    display: flex;
+    justify-content: space-evenly;
+    min-height: 50px;
+}
+
+nav div {
+    display: flex;
+}
+
+nav div a {
+    display: flex;
+    flex: 1;
+    text-decoration: none;
+    color: var(--secondary-color);
+    max-width: 100px;
+    width: 100px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+nav a:active {
+    background-color: var(--charcoal-black);
+    color: var(--main-color);
+}
+
+main {
+    min-height: calc(100vh - 150px);
+    margin: 0px 100px 0px 100px;
+}
+
+footer {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: var(--charcoal-black);
+    color: var(--main-color);
+    height: 100px;
+    width: 100%;
+}
+
+footer a {
+    color: var(--main-color);
+    text-decoration: none;
+    align-content: center;
+}
+
+footer a:active {
+    color: var(--secondary-color);
+}
+
+h1 {
+    color: var(--main-color);
+    text-shadow: 1px 1px 0px var(--charcoal-black),
+                2px 2px 0px var(--charcoal-black),
+                3px 3px 0px var(--charcoal-black),
+                4px 4px 0px var(--charcoal-black),
+                5px 5px 0px var(--charcoal-black),
+                6px 6px 0px var(--charcoal-black),
+                7px 7px 5px var(--charcoal-black);
+}
