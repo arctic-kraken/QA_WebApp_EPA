@@ -42,13 +42,13 @@ body {
 nav {
     background-color: var(--main-color);
     color: var(--secondary-color);
-    display: flex;
-    justify-content: space-evenly;
+    display: inline-flex;
+    justify-content: space-between;
     min-height: 50px;
 }
 
 nav div {
-    display: flex;
+    display: inherit;
 }
 
 nav div a {
@@ -103,3 +103,87 @@ h1 {
                 6px 6px 0px var(--charcoal-black),
                 7px 7px 5px var(--charcoal-black);
 }
+
+.box-shadow {
+    box-shadow: 1px 1px 0px var(--charcoal-black),
+                    2px 2px 0px var(--charcoal-black),
+                    3px 3px 0px var(--charcoal-black),
+                    4px 4px 0px var(--charcoal-black),
+                    5px 5px 0px var(--charcoal-black),
+                    6px 6px 0px var(--charcoal-black),
+                    7px 7px 5px var(--charcoal-black);
+}
+
+.input-text {
+    font-family: inherit;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.simple-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-item {
+    margin-top: 10px;
+}
+
+.button-submit {
+    font-family: inherit;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+}
+
+.button-submit:active {
+    background-color: var(--charcoal-black);
+    color: var(--main-color);
+}
+
+.message-container {
+
+}
+
+.message {
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: inline-flex;
+}
+
+.error {
+    border-color: darkred;
+    background-color: pink;
+}
+    .error-icon {
+        content: url('/static/imgs/icons/error.png');
+    }
+
+.warning {
+    border-color: darkgoldenrod;
+    background-color: lightgoldenrodyellow;
+}
+    .warning-icon {
+        content: url('/static/imgs/icons/warning.png');
+    }
+
+.info {
+    border-color: dodgerblue;
+    background-color: lightcyan;
+}
+    .info-icon {
+        content: url('/static/imgs/icons/info.png');
+    }
+
+.icon {
+    width: 24px;
+    height: 24px;
+}
+
+
+
+

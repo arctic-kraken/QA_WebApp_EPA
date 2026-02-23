@@ -10,22 +10,27 @@
 <body>
     <nav>
         {% block nav_bar %}
-
-        {% if session['uuid'] %}
         <div>
-            <a href="/user"><div>Settings</div></a>
-            <a href="/logout">Logout</a>
+                <a href="/"><div>Blow the Budget</div></a>
         </div>
-
-        <div>
-
-
-            <a href="/user"><div>Settings</div></a>
-            <a href="/logout">Logout</a>
-        </div>
-
+        {% if session['uid'] %}
+            <div>
+                <a href="/account/view"><div>Account</div></a>
+                <a href="/"><div>Budgets</div></a>
+                <a href="/"><div>Statements</div></a>
+                {% if is_admin %}
+                    <a href="/user/list"><div>Users</div></a>
+                {% endif %}
+            </div>
+            <div>
+                <a href="/user"><div>Settings</div></a>
+                <a href="/logout">Logout</a>
+            </div>
         {% else %}
-
+            <div>
+                <a href="/login"><div>Login</div></a>
+                <a href="/signup"><div>Sign-up</div></a>
+            </div>
         {% endif %}
 
         {% endblock %}
