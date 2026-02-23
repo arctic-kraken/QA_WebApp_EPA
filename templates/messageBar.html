@@ -1,0 +1,8 @@
+<div class="simple-container message-container">
+    {% for message in messages %}
+    <div class="message {{ message.level.name }}">
+        <img class="icon {{ message.level.name }}-icon" style="margin-right: 5px;">
+        <div>{{ message.content }}</div>
+    </div>
+    {% endfor %}
+</div>

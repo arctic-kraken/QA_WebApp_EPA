@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Create an Account{% endblock %}
+
+{% block head %}
+    {{ super() }}
+
+{% endblock %}
+
+{% block main %}
+<div style="display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;">
+
+    <div class="simple-container" style="border: 1px solid black;
+                                        border-radius: 18px;
+                                        padding: 15px;
+                                        width: 50%;">
+        <div>
+            <h1 style="margin: 0px 0px 10px 0px;">Create an Account</h1>
+        </div>
+
+        <div>
+            <form method="post" style="border-top: 1px solid black;">
+                <div class="simple-container">
+                    <input class="input-text box-shadow form-item" name="account_name" type="text" placeholder="account name">
+                    <input class="input-text box-shadow form-item" name="account_reference" type="text" placeholder="reference">
+                    <input class="input-text box-shadow form-item" name="starting_date" type="date" placeholder="starting date">
+                    <input class="input-text box-shadow form-item" name="starting_balance" type="number" placeholder="starting_balance">
+                    <select class="input-text box-shadow form-item" name="currency_code">
+
+                    </select>
+                    <button class="button-submit box-shadow form-item" type="submit">Create</button>
+                </div>
+            </form>
+
+            {% include 'messageBar.html' %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

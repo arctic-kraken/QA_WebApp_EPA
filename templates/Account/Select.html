@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Log In{% endblock %}
+{% block title %}User Registration{% endblock %}
 
 {% block head %}
     {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/App/login.css') }}">
+
 {% endblock %}
 
 {% block main %}
@@ -17,20 +17,17 @@
                                         padding: 15px;
                                         width: 50%;">
         <div>
-            <h1 style="margin: 0px 0px 10px 0px;">Log In</h1>
+            <h1 style="margin: 0px 0px 10px 0px;">Create or Join an Account</h1>
         </div>
 
         <div>
             <form method="post" style="border-top: 1px solid black;">
                 <div class="simple-container">
-                    <input class="input-text box-shadow form-item" name="username" type="text" placeholder="username">
-                    <input class="input-text box-shadow form-item" name="password" type="password" placeholder="password">
-                    <button class="button-submit box-shadow form-item" type="submit">Log-in</button>
+                    <a href="/account/create"><div>Create a new account</div></a>
+                    <a href="/account/join"><div>Join an existing account</div></a>
                 </div>
             </form>
         </div>
-
-        {% include 'messageBar.html' %}
     </div>
 </div>
 
