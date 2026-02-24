@@ -1,3 +1,7 @@
+import uuid
+
+from sqlalchemy.sql.functions import user
+
 from db import db
 from models.Account import Account
 from models.User import User
@@ -51,5 +55,70 @@ class AccountService:
         account.last_invite_created_date = db.func.now()
         db.session.commit()
         return new_code
+
+    def validate_invite_code(self, code):
+        try:
+            uuid.UUID(code)
+            return True, None
+        except ValueError:
+            return False, ["Invalid Invite Code"]
+
+    def join_user_to_account(self, user_id, invite_code):
+        result, error = self.validate_invite_code(invite_code)
+        if result is False:
+            return False, error, None
+
+        account = Account.query.filter_by(latest_invite_code=invite_code).first()
+        if account is None:
+            return False, ["Account with this invite code does not exist"], None
+
+        # this is impossible in theory but better to be safe than sorry
+        role = UserAccountRole.query.filter_by(user_id=user_id, account_id=account.id).first()
+        if role is not None:
+            return False, ["You are already assigned to this account"], None
+
+        try:
+            role = UserAccountRole()
+            role.user_id = user_id
+            role.account_id = account.id
+            role.is_admin = False
+
+            db.session.add(role)
+            db.session.commit()
+        except Exception as e:
+            return False, [f"Failed to join Account - {e}"], None
+
+        return True, None, account.id
+
+    def get_all_users_for_account(self, account_id):
+        account = Account.query.filter_by(id=account_id).first()
+        if account is None:
+            return None, ["Failed to get all users for this account"]
+
+        all_users = db.session.query(User).join(UserAccountRole, UserAccountRole.user_id == User.id).filter(UserAccountRole.account_id == account.id).all()
+
+        return all_users, None
+
+    def revoke_access_from(self, user_id, account_id):
+        account = Account.query.filter_by(id=account_id).first()
+        if account is None:
+            return None, ["Failed to get account"]
+
+        role = UserAccountRole.query.filter_by(user_id=user_id, account_id=account.id).first()
+        if role is None:
+            return False, ["Failed to find user assigned to this account"]
+
+        # effectively cant revoke from self
+        if role.is_admin:
+            return False, ["Cannot revoke access to admin type account"]
+
+        try:
+            db.session.delete(role)
+            db.session.commit()
+        except Exception as e:
+            return False, [f"Failed to revoke access - {e}"]
+
+        return True, None
+
 
 account_service = AccountService()

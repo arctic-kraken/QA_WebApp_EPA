@@ -1,21 +1,40 @@
 {% extends "base.html" %}
 {% block title %} Account Users {% endblock %}
 
+{% block head %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/invite.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/table.js') }}"></script>
+{% endblock %}
+
 {% block main %}
 
-<h1>Account User List</h1>
+    <h1>Account User List</h1>
 
-<!-- update this bit only using render blocks https://search.brave.com/search?q=python+flask+return+only+a+part+of+template&summary=1&conversation=08c563e43eb9d1e19a0c8d5d859bdd8d0b0f -->
+    <div>
+        <span>Invite Code:</span>
+        <span id="js-inviteCode">{{ invite_code }}</span>
+    </div>
 
-<div>
-    <p>{{ invite_code }}</p>
-    <button type="button">Copy Invite Code</button>
-</div>
+    <button class="button-submit box-shadow" type="button" onclick="getNewInviteCode();">Get New Invite Code</button>
+    <button class="button-submit box-shadow" type="button" onclick="copyToClipboard('#js-inviteCode')">Copy Invite Code</button>
 
-<form method="post">
-     <button class="button-submit box-shadow form-item" type="submit">Get New Invite Code</button>
-</form>
+    {% include 'messageBar.html' %}
 
-<p>insert table with users without thyself over here</p>
+    <div class="table-container">
+        {% for u in users %}
+            <div class="tr">
+                <span style="width: 200px;">{{ u.name }}</span>
+                <span style="width: 50px;">{% if u.id == curr_user.id %} (You) {% endif %} </span>
+                <span> {% if u.id != curr_user.id %}
+                    <button class="bin-btn" type="button" onclick="deleteRecord('/account/revoke_access', {{ u.id }}, 'Are you sure you want to revoke access for this user?');">
+                        <img class="icon bin-icon filter-dark-red">
+                    </button> {% endif %}
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+
 
 {% endblock %}

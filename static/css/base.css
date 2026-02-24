@@ -179,10 +179,51 @@ h1 {
         content: url('/static/imgs/icons/info.png');
     }
 
+.bin-btn {
+    background-color: inherit;
+    border: none;
+    border-radius: 25px;
+    padding: 2px 4px 2px 4px;
+
+}
+    .bin-btn:hover {
+        background-color: pink;
+    }
+
+.bin-icon {
+    content: url('/static/imgs/icons/bin.png');
+}
+
+.filter-dark-red {
+    filter: brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(5948%) hue-rotate(17deg) brightness(94%) contrast(121%);
+}
+
 .icon {
     width: 24px;
     height: 24px;
 }
+
+.table-container {
+    margin-top: 20px;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+}
+
+.table-container::-webkit-scrollbar {
+    display: none;  /* Older Safari and Chromium */
+}
+
+.tr {
+    border-radius: 5px;
+    display: flex;
+}
+    .tr:hover {
+        background-color: lightgray;
+    }
+
 
 
 

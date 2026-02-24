@@ -44,7 +44,7 @@ def login():
             # return render_template('App/Login.html', messages=messages)
 
         app_service.set_current_account_id(account.id)
-        return redirect(url_for('account_bp.view', user=user, account=account))
+        return redirect("/account/view")
 
     return render_template('App/Login.html')
 
