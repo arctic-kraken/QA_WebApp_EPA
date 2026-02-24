@@ -4,12 +4,13 @@ from models.User import User
 from uuid import uuid4
 from services.appService import app_service
 from services.accountService import account_service
+from models.Message import Message
 
 def create():
     return render_template("userController.html")
 
 def edit():
-    user_id = session["uid"]
+    user_id = app_service.get_user_id()
     return render_template("User/edit.html", user = db.session.get_one(User, user_id))
 
 def admin_list():
@@ -18,13 +19,20 @@ def admin_list():
     if not is_admin:
         abort(401)
 
-    # user wants a new invite code
-    if request.method == "POST":
-        account_service.get_new_invite_code(user.id, account.id)
+    messages = []
+    users, errors = account_service.get_all_users_for_account(account.id)
+    if users is None:
+        messages = Message.from_string_list(Message.level.error, errors)
 
-    db.session.refresh(account)
+    return render_template("User/List.html", curr_user=user, is_admin=is_admin, users=users, invite_code=account.latest_invite_code, messages=messages)
 
-    return render_template("User/List.html", user=user, is_admin=is_admin, invite_code=account.latest_invite_code)
+# revoke to current logged in account, only admins have this option
+def revoke_access(user_id):
+    app_service.check_auth()
+
+
+
+    return
 
 # class CRUDOperations:
 #     def create(self, username, email):
