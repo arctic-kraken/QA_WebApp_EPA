@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %} Statements {% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/table.js') }}"></script>
+{% endblock %}
+
+{% block main %}
+
+    <h1>Statements</h1>
+
+    <form method="post" action="" enctype="multipart/form-data">
+        <input class="box-shadow" accept="text/csv" type="file" name="file">
+        <button class="button-submit box-shadow form-item" type="submit">Upload Statement</button>
+    </form>
+
+    {% include 'messageBar.html' %}
+
+    <br>
+    <div class="header-row">
+        <span style="min-width: 200px;">Reference</span>
+        <span style="min-width: 200px;">Name</span>
+        <span style="min-width: 200px;">Upload Date</span>
+        <span style="min-width: 100px;">Trx Count</span>
+        <span style="min-width: 150px;">Money In Total</span>
+        <span style="min-width: 150px;">Money Out Total</span>
+        <span style="min-width: 200px;">Oldest Trx</span>
+        <span style="min-width: 200px;">Latest Trx</span>
+    </div>
+    <div class="table-container">
+        {% for s in statements %}
+            <a href="/statement/view/{{ s.id }}">
+                <div class="tr">
+                    <span style="min-width: 200px;">{{ s.reference }}</span>
+                    <span style="min-width: 200px;">{{ s.name }}</span>
+                    <span style="min-width: 200px;">{{ s.upload_date }}</span>
+                    <span style="min-width: 100px;">{{ s.trx_count }}</span>
+                    <span class="text-align-right" style="min-width: 150px;">{{ '%0.2f'| format(s.money_in_total|float) }}</span>
+                    <span class="text-align-right" style="min-width: 150px;">{{ '%0.2f'| format(s.money_out_total|float) }}</span>
+                    <span class="text-align-right" style="min-width: 200px;">{{ s.date_oldest }}</span>
+                    <span class="text-align-right" style="min-width: 200px;">{{ s.date_newest }}</span>
+
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

@@ -16,7 +16,7 @@ class AccountService:
             new_account.reference = account_reference
             new_account.starting_date = starting_date
             new_account.starting_balance = starting_balance
-            new_account.currency_code = currency_code
+            #new_account.currency_code = currency_code
 
             db.session.add(new_account)
             db.session.commit()

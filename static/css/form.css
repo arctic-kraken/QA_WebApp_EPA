@@ -1,0 +1,17 @@
+label {
+    min-width: 300px;
+}
+
+input:read-only {
+    border: none;
+    background-color: inherit;
+
+}
+
+input {
+    font-family: inherit;
+}
+
+.form-row-container {
+    display: inline-flex;
+}
