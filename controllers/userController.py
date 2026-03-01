@@ -6,9 +6,6 @@ from services.appService import app_service
 from services.accountService import account_service
 from models.Message import Message
 
-def create():
-    return render_template("userController.html")
-
 def edit():
     user_id = app_service.get_user_id()
     return render_template("User/edit.html", user = db.session.get_one(User, user_id))
@@ -26,13 +23,6 @@ def admin_list():
 
     return render_template("User/List.html", curr_user=user, is_admin=is_admin, users=users, invite_code=account.latest_invite_code, messages=messages)
 
-# revoke to current logged in account, only admins have this option
-def revoke_access(user_id):
-    app_service.check_auth()
-
-
-
-    return
 
 # class CRUDOperations:
 #     def create(self, username, email):

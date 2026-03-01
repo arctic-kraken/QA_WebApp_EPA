@@ -1,12 +1,11 @@
 from flask import Blueprint
 
-from controllers.userController import create, edit, admin_list
+from controllers.userController import edit, admin_list
 
 user_bp = Blueprint("user_bp", __name__)
 
 # user_bp.route('/<int:user_id>', methods=['GET'])(edit)
 user_bp.route('/', methods=['GET'])(edit)
-user_bp.route('/create', methods=['POST'])(create)
 user_bp.route('/list', methods=['GET'])(admin_list)
 
 

@@ -28,7 +28,7 @@
                 <span style="width: 200px;">{{ u.name }}</span>
                 <span style="width: 50px;">{% if u.id == curr_user.id %} (You) {% endif %} </span>
                 <span> {% if u.id != curr_user.id %}
-                    <button class="bin-btn" type="button" onclick="deleteRecord('/account/revoke_access', {{ u.id }}, 'Are you sure you want to revoke access for this user?');">
+                    <button class="bin-btn" type="button" onclick="deleteRecord('/account/revoke_access', {{ u.id }}, 'Are you sure you want to revoke access for this user?', 'Successfully revoked access', 'Failed to revoke access - ', true);">
                         <img class="icon bin-icon filter-dark-red">
                     </button> {% endif %}
                 </span>
