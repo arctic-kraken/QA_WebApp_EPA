@@ -1,0 +1,20 @@
+.budget-tag {
+    width: fit-content;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 5px;
+}
+
+    .budget-tag:hover {
+        background-color: lightgray;
+    }
+
+.budget-tag-container {
+    display: flex;
+}
+
+.budget-tag-text {
+    padding-right: 5px;
+    padding-left: 5px;
+}

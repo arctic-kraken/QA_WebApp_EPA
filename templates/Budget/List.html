@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %} Statements {% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/table.js') }}"></script>
+{% endblock %}
+
+{% block main %}
+
+    <h1>Budgets</h1>
+
+    <form method="get" action="/budget/create">
+        <button class="button-submit box-shadow form-item" type="submit">Create New Budget</button>
+    </form>
+
+    {% include 'messageBar.html' %}
+
+    <br>
+    <div class="header-row">
+        <span style="min-width: 200px;">Name</span>
+        <span style="min-width: 200px;">Monthly Limit</span>
+    </div>
+    <div class="table-container">
+        {% for b in budgets %}
+            <a href="/budget/edit/{{ b.id }}">
+                <div class="tr">
+                    <span style="min-width: 200px;">{{ b.name }}</span>
+                    <span style="min-width: 200px;">{{ b.monthly_amount_limit }}</span>
+
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
