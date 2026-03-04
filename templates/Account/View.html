@@ -1,11 +1,64 @@
 {% extends "base.html" %}
-{% block title %}{% endblock %}
+{% block title %} Account {{ account.name }} {% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/account_view.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/summary.css') }}">
+{% endblock %}
 
 {% block main %}
 
-<p>Account view for {{ account.name }}</p>
+<h1>Account {{ account.name }}</h1>
 
 <p>Viewing user: {{ user.name }}</p>
+
+<form method="post">
+    <div class="simple-container">
+        <div style="display: inline-flex; max-width: 200px;">
+            <label style="min-width: 100px;">Select Year:</label>
+            <select id="js-select-year" name="year" style="min-width: 100px;">
+                {% for date in date_dict %}
+                    <option>{{ date }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div style="display: inline-flex; max-width: 200px;">
+            <label style="min-width: 100px;">Select Month:</label>
+            <select id="js-select-month" name="month" style="min-width: 100px;">
+                {% for year in date_dict %}
+                    {% for month in date_dict[year] %}
+                        <option class="y-{{ year }}" value="{{ month }}">{{ month }}</option>
+                    {% endfor %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="recalc">Re-calculate Summary:</label>
+            <input type="checkbox" id="recalc" name="recalc">
+        </div>
+
+        <button class="button-submit box-shadow form-item" type="submit" style="max-width: 200px;">Get Summary</button>
+    </div>
+</form>
+
+{% if viewmodel %}
+    <div class="summary-container-wrapper" style="margin-top: 20px;">
+        {% for model in viewmodel %}
+            <div class="summary-container summary-box-shadow">
+                <div class="summary-row"><span> {{ model.budget_name }} </span><span> Limit: {{ model.budget_limit }} </span></div>
+                <div class="summary-row"><span> Total Money In: {{ model.total_in }} </span><span> Total Money Out: {{ model.total_out }} </span></div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% else %}
+<div>No summaries available</div>
+
+{% endif %}
 
 {% endblock %}
 

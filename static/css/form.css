@@ -15,3 +15,7 @@ input {
 .form-row-container {
     display: inline-flex;
 }
+
+select {
+    font-family: inherit;
+}

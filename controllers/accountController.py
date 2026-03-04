@@ -3,6 +3,8 @@ from services.accountService import account_service
 from models.Currency import Currency
 from models.Message import Message
 from services.appService import app_service
+from services.budgetService import budget_service
+from services.statementService import statement_service
 
 def create():
     user_id = app_service.get_current_user_id()
@@ -49,9 +51,39 @@ def join():
 
 def view():
     app_service.check_auth()
-
     account, user, is_admin = account_service.get_account_user_role_for(app_service.get_current_user_id(), app_service.get_current_account_id())
-    return render_template("Account/View.html", user=user, account=account, is_admin=is_admin)
+    messages = []
+    summaries = []
+    viewmodel = []
+    date_dict = statement_service.get_all_available_dates(app_service.get_current_account_id())
+
+    if request.method == "POST":
+        year = request.form["year"]
+        month = request.form["month"]
+        should_recalc = False
+        if request.form.get("recalc") is not None:
+            should_recalc = bool(request.form["recalc"])
+
+        # budget_service.calculate_monthly_budget_summary(app_service.get_current_account_id(), 4, year, month)
+        if should_recalc is True:
+            result, errors = budget_service.calc_all_budget_summaries(app_service.get_current_account_id(), month, year)
+            if result is False:
+                messages = Message.from_string_list(Message.Level.error, errors)
+
+            print(errors)
+        viewmodel = budget_service.get_budget_summaries_view_models(app_service.get_current_account_id(), month, year)
+
+    #     summaries, result, errors = budget_service.get_all_budget_summaries(app_service.get_current_account_id(), month, year)
+    #     if result is False:
+    #         messages = Message.from_string_list(Message.Level.error, errors)
+    #
+    # # dates_v2 = filter(lambda x: x[0] == '2026', dates)
+    # # print(dates_v2)
+    # budgets, errors = budget_service.get_budgets_for_account(app_service.get_current_account_id())
+    # if budgets is None:
+    #     messages = Message.from_string_list(Message.Level.error, errors)
+
+    return render_template("Account/View.html", viewmodel=viewmodel, date_dict=date_dict, user=user, account=account, is_admin=is_admin)
 
 def newinvite():
     app_service.check_auth()

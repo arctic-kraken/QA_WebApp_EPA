@@ -71,20 +71,3 @@ def delete(budget_id: int):
 
     return '', 204
 
-# def delete_trx(trx_id: int):
-#     app_service.check_auth()
-#     account, curr_user, is_admin = account_service.get_account_user_role_for(app_service.get_current_user_id(),
-#                                                                              app_service.get_current_account_id())
-#     if is_admin is False:
-#         abort(401)
-#
-#     if trx_id is None or trx_id < 1:
-#         abort(400)
-#
-#     result, errors = statement_service.delete_trx(trx_id, app_service.get_current_account_id())
-#     if result is False:
-#         print(errors)
-#         return errors, 405
-#
-#     return '', 204
-
