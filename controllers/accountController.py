@@ -53,9 +53,15 @@ def view():
     app_service.check_auth()
     account, user, is_admin = account_service.get_account_user_role_for(app_service.get_current_user_id(), app_service.get_current_account_id())
     messages = []
-    summaries = []
     viewmodel = []
     date_dict = statement_service.get_all_available_dates(app_service.get_current_account_id())
+    # print(date_dict)
+    latest_year, latest_month = statement_service.get_latest_available_date(date_dict)
+    # print(f"m: {latest_month}, y: {latest_year}")
+    currency = "GBP"
+
+    selected_year = latest_year
+    selected_month = latest_month
 
     if request.method == "POST":
         year = request.form["year"]
@@ -64,26 +70,21 @@ def view():
         if request.form.get("recalc") is not None:
             should_recalc = bool(request.form["recalc"])
 
-        # budget_service.calculate_monthly_budget_summary(app_service.get_current_account_id(), 4, year, month)
         if should_recalc is True:
             result, errors = budget_service.calc_all_budget_summaries(app_service.get_current_account_id(), month, year)
             if result is False:
                 messages = Message.from_string_list(Message.Level.error, errors)
 
-            print(errors)
-        viewmodel = budget_service.get_budget_summaries_view_models(app_service.get_current_account_id(), month, year)
+        selected_year = int(year)
+        selected_month = int(month)
+            # print(errors)
 
-    #     summaries, result, errors = budget_service.get_all_budget_summaries(app_service.get_current_account_id(), month, year)
-    #     if result is False:
-    #         messages = Message.from_string_list(Message.Level.error, errors)
-    #
-    # # dates_v2 = filter(lambda x: x[0] == '2026', dates)
-    # # print(dates_v2)
-    # budgets, errors = budget_service.get_budgets_for_account(app_service.get_current_account_id())
-    # if budgets is None:
-    #     messages = Message.from_string_list(Message.Level.error, errors)
+    viewmodel = budget_service.get_budget_summaries_view_models(app_service.get_current_account_id(), selected_month, selected_year)
+    # print(f"m: {selected_month}, y: {selected_year}")
+    month_name = app_service.get_month_name(selected_month, selected_year)
+    # print(month_name)
 
-    return render_template("Account/View.html", viewmodel=viewmodel, date_dict=date_dict, user=user, account=account, is_admin=is_admin)
+    return render_template("Account/View.html", viewmodel=viewmodel, currency=currency, month_name=month_name, month=selected_month, year=selected_year, date_dict=date_dict, user=user, account=account, is_admin=is_admin, messages=messages)
 
 def newinvite():
     app_service.check_auth()

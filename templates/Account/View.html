@@ -14,49 +14,72 @@
 
 <p>Viewing user: {{ user.name }}</p>
 
+{% include 'messageBar.html' %}
+
 <form method="post">
     <div class="simple-container">
-        <div style="display: inline-flex; max-width: 200px;">
+        <div class="form-item" style="display: inline-flex; max-width: 200px;">
             <label style="min-width: 100px;">Select Year:</label>
             <select id="js-select-year" name="year" style="min-width: 100px;">
                 {% for date in date_dict %}
-                    <option>{{ date }}</option>
+                    {% if date == year %}
+                        <option selected="selected">{{ date }}</option>
+                    {% else %}
+                        <option>{{ date }}</option>
+                    {% endif %}
                 {% endfor %}
             </select>
         </div>
 
-        <div style="display: inline-flex; max-width: 200px;">
+        <div class="form-item" style="display: inline-flex; max-width: 200px;">
             <label style="min-width: 100px;">Select Month:</label>
             <select id="js-select-month" name="month" style="min-width: 100px;">
-                {% for year in date_dict %}
-                    {% for month in date_dict[year] %}
-                        <option class="y-{{ year }}" value="{{ month }}">{{ month }}</option>
+                {% for d_year in date_dict %}
+                    {% for d_month in date_dict[d_year] %}
+                        {% if d_year == year and d_month == month %}
+                            <option class="y-{{ d_year }}" value="{{ d_month }}" selected="selected">{{ d_month }}</option>
+                        {% else %}
+                            <option class="y-{{ d_year }}" value="{{ d_month }}">{{ d_month }}</option>
+                        {% endif %}
                     {% endfor %}
                 {% endfor %}
             </select>
         </div>
 
-        <div>
+        <div class="form-item">
             <label for="recalc">Re-calculate Summary:</label>
             <input type="checkbox" id="recalc" name="recalc">
+        </div>
+        <div class="form-item">
+            <label style="min-width: 200px;">Account Currency: {{ currency }}</label>
         </div>
 
         <button class="button-submit box-shadow form-item" type="submit" style="max-width: 200px;">Get Summary</button>
     </div>
 </form>
 
+{% if month_name %}
+    <div style="margin-top: 20px;"> Showing Summary for {{ month_name }} {{ year }} </div>
+{% endif %}
+
 {% if viewmodel %}
     <div class="summary-container-wrapper" style="margin-top: 20px;">
         {% for model in viewmodel %}
             <div class="summary-container summary-box-shadow">
-                <div class="summary-row"><span> {{ model.budget_name }} </span><span> Limit: {{ model.budget_limit }} </span></div>
-                <div class="summary-row"><span> Total Money In: {{ model.total_in }} </span><span> Total Money Out: {{ model.total_out }} </span></div>
+                <div class="summary-row">
+                    <span> {{ model.budget_name }} </span>
+                    <span> Monthly Limit: {% if model.budget_limit %} {{ '%0.2f'| format(model.budget_limit|float) }} {% else %} 0.00 {% endif %} </span>
+                </div>
+                <div class="summary-row">
+                    <span> Total Money In: <span style="color: green;">{% if model.total_in %} {{ '%0.2f'| format(model.total_in|float) }} {% else %} 0.00 {% endif %}</span> </span>
+                    <span> Total Money Out: <span style="color: red;">{% if model.total_out %} {{ '%0.2f'| format(model.total_out|float) }} {% else %} 0.00 {% endif %}</span> </span>
+                </div>
             </div>
         {% endfor %}
     </div>
 
 {% else %}
-<div>No summaries available</div>
+<div style="margin-top: 20px;">No summaries available</div>
 
 {% endif %}
 

@@ -14,9 +14,9 @@
 
 <h1>Budget Edit</h1>
 
+{% include 'messageBar.html' %}
+
 <form class="simple-container" method="post">
-
-
     <div class="form-row-container">
         <label for="name">Budget Name:</label>
         <input type="text" id="name" name="name" value="{{ budget.name }}">
@@ -49,7 +49,7 @@
         {% endfor %}
     </div>
 
-    <input hidden id="js-form-clauses" name="clauses">
+    <input hidden id="js-form-clauses" name="clauses" value="{{ budget.capture_clause_json }}">
 
     <br>
     <div class="form-row-container">
@@ -65,7 +65,5 @@
     </div>
 
 </form>
-
-{% include 'messageBar.html' %}
 
 {% endblock %}

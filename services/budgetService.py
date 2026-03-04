@@ -101,8 +101,10 @@ class BudgetService:
         if budget is None:
             return False, errors
 
+        year_in_next_month = year
         next_month = int(month) + int(1)
         if next_month > 12:
+            year_in_next_month = int(year) + int(1)
             next_month = 1
 
         update = True
@@ -123,15 +125,10 @@ class BudgetService:
             for text in clause:
                 trxs = (db.session.query(StatementTrx).join(Statement, Statement.id == StatementTrx.statement_id)
                         .filter(Statement.account_id == account.id, StatementTrx.date >= f"{year}-{month}-01",
-                                StatementTrx.date < f"{year}-{str(next_month)}-01", StatementTrx.description.like(text)).all())
-                # print(trxs)
-                # print(sum(trx.money_in for trx in trxs if trx.money_in is not None))
-                # print(sum(trx.money_out for trx in trxs if trx.money_out is not None))
+                                StatementTrx.date < f"{year_in_next_month}-{next_month}-01", StatementTrx.description.like(f"%{text}%")).all())
+
                 summary.total_money_in += sum(trx.money_in for trx in trxs if trx.money_in is not None)
                 summary.total_money_out += sum(trx.money_out for trx in trxs if trx.money_out is not None)
-
-            # print(summary.total_money_in)
-            # print(summary.total_money_out)
 
             if update is False:
                 db.session.add(summary)
@@ -180,7 +177,6 @@ class BudgetService:
 
     def get_budget_summaries_view_models(self, account_id: int, month: int, year: int):
         budgets, errors = self.get_budgets_for_account(account_id)
-        summaries, result, errors = self.get_all_budget_summaries(account_id, month, year)
         viewmodel = []
 
         for budget in budgets:

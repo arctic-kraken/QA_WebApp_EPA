@@ -14,6 +14,7 @@ from werkzeug.utils import secure_filename
 from sqlalchemy import extract, distinct
 
 from collections import defaultdict
+import collections
 
 # only for debug
 import traceback
@@ -221,7 +222,11 @@ class StatementService:
 
         return date_dict
 
-    def get_all_trxs_for_month_in_year(self, month, year):
-        return
+    def get_latest_available_date(self, date_dict):
+        dict = date_dict
+        ordered_dict = collections.OrderedDict(sorted(dict.items(), reverse=True))
+        year = next(iter(ordered_dict))
+        month = max(dict[year])
+        return year, month
 
 statement_service = StatementService()

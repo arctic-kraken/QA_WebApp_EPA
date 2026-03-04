@@ -1,4 +1,5 @@
 from flask import session, abort
+import datetime
 
 class AppService:
 
@@ -19,5 +20,10 @@ class AppService:
         account_id = self.get_current_account_id()
         if user_id is None or account_id is None:
             abort(401)
+
+    def get_month_name(self, month, year):
+        m_datetime = datetime.datetime(year=int(year), month=int(month), day=1)
+        return m_datetime.strftime("%B")
+
 
 app_service = AppService()

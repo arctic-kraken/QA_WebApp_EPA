@@ -22,6 +22,7 @@ function add_clause() {
 
     prepare_clauses();
     addMessage("info", "Clause added successfully");
+    input.value = ''
 }
 
 function remove_clause(sender) {
