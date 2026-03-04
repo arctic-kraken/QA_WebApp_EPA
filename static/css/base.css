@@ -1,20 +1,26 @@
 @property --main-color {
     syntax: "<color>";
     inherits: false;
-    initial-value: #5546FA
+    initial-value: #5546FA;
+}
+
+@property --dark-main-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #463acb;
 }
 
 @property --secondary-color {
     syntax: "<color>";
     inherits: false;
-    initial-value: #F5FAFF
+    initial-value: #F5FAFF;
 }
 
 
 @property --charcoal-black {
     syntax: "<color>";
     inherits: false;
-    initial-value: #060613
+    initial-value: #060613;
 }
 /* https://fonts.google.com/selection?lang=en_Latn&script=Latn&categoryFilters=Feeling:%2FExpressive%2FBusiness;Appearance:%2FTheme%2FTechno */
 /*.kanit-regular {
@@ -207,10 +213,32 @@ h1 {
     filter: brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(5948%) hue-rotate(17deg) brightness(94%) contrast(121%);
 }
 
+.filter-white {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(18%) hue-rotate(244deg) brightness(103%) contrast(107%);
+}
+
 .icon {
     width: 24px;
     height: 24px;
 }
+
+.github-icon {
+    width: 32px;
+    height: 32px;
+    content: url('/static/imgs/icons/github.png');
+}
+
+.github-link-container {
+    display: flex;
+    border-radius: 5px;
+}
+    .github-link-container:hover {
+        background-color: var(--main-color);
+    }
+
+    .github-link-container:active {
+        background-color: var(--dark-main-color);
+    }
 
 .table-container {
     margin-top: 20px;
@@ -272,6 +300,8 @@ input[type="file"] {
 .text-align-center {
     text-align: center;
 }
+
+
 
 
 

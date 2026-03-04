@@ -16,7 +16,7 @@
         {% if session['uid'] %}
             <div>
                 <a href="/account/view"><div>Account</div></a>
-                <a href="/"><div>Budgets</div></a>
+                <a href="/budget/list"><div>Budgets</div></a>
                 <a href="/statement/list"><div>Statements</div></a>
                 {% if is_admin %}
                     <a href="/user/list"><div>Users</div></a>
@@ -41,7 +41,13 @@
     </main>
     <footer>
         {% block footer %}
-         <a href="https://github.com/arctic-kraken/QA_WebApp_EPA/tree/master">Link to GitHub</a>
+         <a href="https://github.com/arctic-kraken/QA_WebApp_EPA/tree/master">
+             <div class="github-link-container">
+                 <img class="github-icon filter-white">
+                 <span style="color: white; margin-left: 5px; margin-right: 5px; align-content: center;">Link to GitHub</span>
+             </div>
+
+         </a>
         {% endblock %}
     </footer>
 </body>

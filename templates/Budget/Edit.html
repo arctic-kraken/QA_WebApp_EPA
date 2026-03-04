@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %} Budget {{ budget.name }} {% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/budget.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/budget.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/table.js') }}"></script>
+{% endblock %}
+
+{% block main %}
+
+<h1>Budget Edit</h1>
+
+{% include 'messageBar.html' %}
+
+<form class="simple-container" method="post">
+    <div class="form-row-container">
+        <label for="name">Budget Name:</label>
+        <input type="text" id="name" name="name" value="{{ budget.name }}">
+    </div>
+    <div class="form-row-container">
+        <label for="limit">Monthly Budget Amount:</label>
+        <input type="number" id="limit" name="limit" value="{{ budget.monthly_amount_limit }}">
+    </div>
+
+    <div>
+        <div class="form-row-container">
+            <label for="js-add-clause">A transaction will be assigned to this budget if it's description contains:</label>
+        </div>
+        <br>
+        <input type="text" id="js-add-clause" placeholder="Type text here">
+        <button class="button-submit box-shadow form-item" type="button" onclick="add_clause();" style="max-width: 100px; margin-right: 10px;">Add Clause</button>
+    </div>
+
+    <label for="js-clauses">Budget Clauses:</label>
+    <div class="budget-tag-container" id="js-clauses">
+        {% for c in clauses %}
+            <div class="budget-tag">
+                <span class="budget-tag-text">{{ c }}</span>
+                <span>
+                    <button class="bin-btn" type="button" onclick="remove_clause(this);">
+                        <img class="icon bin-icon filter-dark-red">
+                    </button>
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+
+    <input hidden id="js-form-clauses" name="clauses" value="{{ budget.capture_clause_json }}">
+
+    <br>
+    <div class="form-row-container">
+        {% if budget.id > 0 %}
+            <button class="button-submit box-shadow form-item" type="submit" style="max-width: 100px; margin-right: 10px;">Update</button>
+        {% else %}
+            <button class="button-submit box-shadow form-item" type="submit" style="max-width: 100px; margin-right: 10px;">Create</button>
+        {% endif %}
+
+        {% if is_admin %}
+            <button class="button-submit box-shadow form-item delete-btn" type="button" onclick="deleteRecord('/budget/delete', {{ budget.id }}, 'Are you sure you want to delete this budget?', 'Budget Deleted - taking you to the Budget List', 'Failed to delete budget - ', true);" style="max-width: 200px;">Delete Budget</button>
+        {% endif %}
+    </div>
+
+</form>
+
+{% endblock %}

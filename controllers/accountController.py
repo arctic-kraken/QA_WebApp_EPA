@@ -3,6 +3,8 @@ from services.accountService import account_service
 from models.Currency import Currency
 from models.Message import Message
 from services.appService import app_service
+from services.budgetService import budget_service
+from services.statementService import statement_service
 
 def create():
     user_id = app_service.get_current_user_id()
@@ -49,9 +51,40 @@ def join():
 
 def view():
     app_service.check_auth()
-
     account, user, is_admin = account_service.get_account_user_role_for(app_service.get_current_user_id(), app_service.get_current_account_id())
-    return render_template("Account/View.html", user=user, account=account, is_admin=is_admin)
+    messages = []
+    viewmodel = []
+    date_dict = statement_service.get_all_available_dates(app_service.get_current_account_id())
+    # print(date_dict)
+    latest_year, latest_month = statement_service.get_latest_available_date(date_dict)
+    # print(f"m: {latest_month}, y: {latest_year}")
+    currency = "GBP"
+
+    selected_year = latest_year
+    selected_month = latest_month
+
+    if request.method == "POST":
+        year = request.form["year"]
+        month = request.form["month"]
+        should_recalc = False
+        if request.form.get("recalc") is not None:
+            should_recalc = bool(request.form["recalc"])
+
+        if should_recalc is True:
+            result, errors = budget_service.calc_all_budget_summaries(app_service.get_current_account_id(), month, year)
+            if result is False:
+                messages = Message.from_string_list(Message.Level.error, errors)
+
+        selected_year = int(year)
+        selected_month = int(month)
+            # print(errors)
+
+    viewmodel = budget_service.get_budget_summaries_view_models(app_service.get_current_account_id(), selected_month, selected_year)
+    # print(f"m: {selected_month}, y: {selected_year}")
+    month_name = app_service.get_month_name(selected_month, selected_year)
+    # print(month_name)
+
+    return render_template("Account/View.html", viewmodel=viewmodel, currency=currency, month_name=month_name, month=selected_month, year=selected_year, date_dict=date_dict, user=user, account=account, is_admin=is_admin, messages=messages)
 
 def newinvite():
     app_service.check_auth()
