@@ -4,4 +4,3 @@ pyodbc
 python-dotenv
 sqlalchemy
 flask-migrate
-pyodbc
