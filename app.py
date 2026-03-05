@@ -1,5 +1,5 @@
 import flask
-# from db import db
+from db import db
 from flask_migrate import Migrate
 
 from routes import budget_bp
@@ -14,23 +14,23 @@ import os
 app = flask.Flask(__name__)
 
 # create a .env file with the vars, because it is git ignored
-# app.config['SQLALCHEMY_DATABASE_URI'] = f"mssql+pyodbc:///?odbc_connect={os.environ.get('DB_CONNECT_URL')}"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mssql+pyodbc:///?odbc_connect={os.environ.get('DB_CONNECT_URL')}"
 # app.config.from_object('config') # look into this type of config
 
 # app.config['FLASK_DEBUG'] = True
 app.secret_key = os.environ.get('SECRET_KEY')
 app.app_context().push()
 # db = db(app) # apparently does same as line above
-# db.init_app(app)
-# db.create_all()
-# migrate = Migrate(app, db) # CONTINUE TRYING TO DO MIGRATIONS; do the live db upgrade with a production db uri
+db.init_app(app)
+db.create_all()
+migrate = Migrate(app, db) # CONTINUE TRYING TO DO MIGRATIONS; do the live db upgrade with a production db uri
 
-# with app.app_context():
-#     try:
-#         db.engine.connect()
-#         print("DB connected")
-#     except Exception as e:
-#         print(f"DB connection failed: {e}")
+with app.app_context():
+    try:
+        db.engine.connect()
+        print("DB connected")
+    except Exception as e:
+        print(f"DB connection failed: {e}")
 
 
 
@@ -42,6 +42,7 @@ app.register_blueprint(budget_bp, url_prefix="/budget")
 
 # user = db.session.get(User, 1)
 # print(f"{user.name} {user.password}")
+
 
 
 
