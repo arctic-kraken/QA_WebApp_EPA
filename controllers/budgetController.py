@@ -15,7 +15,7 @@ def list():
     if budgets is None:
         messages = Message.from_string_list(Message.level.error, errors)
 
-    return render_template("Budget/List.html", budgets=budgets, is_admin=is_admin, messages=messages)
+    return render_template("Budget/List.html", budgets=budgets, user=user, is_admin=is_admin, messages=messages)
 
 def edit(budget_id: int):
     app_service.check_auth()
@@ -43,7 +43,7 @@ def edit(budget_id: int):
             if budget is None:
                 messages = Message.from_string_list(Message.level.error, errors)
 
-    return render_template("Budget/Edit.html", budget=budget, clauses=clauses, is_admin=is_admin, messages=messages)
+    return render_template("Budget/Edit.html", budget=budget, clauses=clauses, user=user, is_admin=is_admin, messages=messages)
 
 def create():
     app_service.check_auth()

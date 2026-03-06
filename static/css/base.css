@@ -302,6 +302,12 @@ input[type="file"] {
     text-align: center;
 }
 
+.whoami {
+    justify-content: center;
+    align-items: center;
+    padding-right: 5px;
+}
+
 
 
 

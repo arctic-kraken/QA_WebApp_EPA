@@ -7,8 +7,8 @@ from services.budgetService import budget_service
 from services.statementService import statement_service
 
 def create():
-    user_id = app_service.get_current_user_id()
-    if user_id is None:
+    account, user, is_admin = account_service.get_account_user_role_for(app_service.get_current_user_id(), app_service.get_current_account_id())
+    if user is None:
         abort(401)
 
     currencies = Currency.query.all()
@@ -20,7 +20,7 @@ def create():
         starting_balance = request.form["starting_balance"]
         #currency_code = request.form["currency_code"]
 
-        new_acc, errors = account_service.create_account_for(user_id, name, reference, starting_date, starting_balance, "GBP")
+        new_acc, errors = account_service.create_account_for(user.id, name, reference, starting_date, starting_balance, "GBP")
 
         if errors is not None:
             messages = Message.from_string_list(Message.Level.error, errors)
@@ -29,13 +29,18 @@ def create():
             app_service.set_current_account_id(new_acc.id)
             return redirect("view")
 
-    return render_template("Account/Create.html", currencies=currencies)
+    return render_template("Account/Create.html", currencies=currencies, user=user, is_admin=is_admin)
 
 def select():
-    return render_template("Account/Select.html")
+    account, user, is_admin = account_service.get_account_user_role_for(app_service.get_current_user_id(), app_service.get_current_account_id())
+    if user is None:
+        abort(401)
+
+    return render_template("Account/Select.html", user=user, is_admin=is_admin)
 
 def join():
-    if app_service.get_current_user_id() is None:
+    account, user, is_admin = account_service.get_account_user_role_for(app_service.get_current_user_id(), app_service.get_current_account_id())
+    if user is None:
         abort(401)
 
     messages = []
@@ -47,7 +52,7 @@ def join():
         else:
             app_service.set_current_account_id(acc_id)
             return redirect("view")
-    return render_template("Account/Join.html", messages=messages)
+    return render_template("Account/Join.html", user=user, is_admin=is_admin, messages=messages)
 
 def view():
     app_service.check_auth()

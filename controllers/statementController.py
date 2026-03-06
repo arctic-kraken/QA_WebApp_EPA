@@ -34,7 +34,7 @@ def view(statement_id: int):
         else:
             messages.append(Message(Message.level.info, "Statement successfully deleted"))
 
-    return render_template("Statement/View.html", statement=statement, trxs=trxs, is_admin=is_admin, currency="GBP", messages=messages)
+    return render_template("Statement/View.html", statement=statement, trxs=trxs, user=user, is_admin=is_admin, currency="GBP", messages=messages)
 
 def list():
     app_service.check_auth()
@@ -45,7 +45,7 @@ def list():
         file = request.files.get('file')
         if file is None:
             messages.append(Message(Message.level.warning, "Please choose a file in '.csv' format to upload"))
-            return render_template("Statement/List.html", is_admin=is_admin, messages=messages)
+            return render_template("Statement/List.html", user=user, is_admin=is_admin, messages=messages)
 
         result, error = statement_service.upload_file(file, app_service.get_current_user_id(), app_service.get_current_account_id())
         if result is False:
@@ -55,7 +55,7 @@ def list():
 
     statements = statement_service.get_all_statements_for_account(app_service.get_current_account_id())
 
-    return render_template("Statement/List.html", statements=statements, is_admin=is_admin, messages=messages)
+    return render_template("Statement/List.html", statements=statements, user=user, is_admin=is_admin, messages=messages)
 
 def delete_trx(trx_id: int):
     app_service.check_auth()

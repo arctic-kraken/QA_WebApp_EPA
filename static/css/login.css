@@ -1,0 +1,17 @@
+main {
+    display: flex;
+}
+
+.simple-container a {
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+    text-decoration: none;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+    .simple-container a:active {
+        background-color: var(--dark-main-color);
+        color: var(--charcoal-black);
+    }

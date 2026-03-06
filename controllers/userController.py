@@ -22,4 +22,4 @@ def admin_list():
     if users is None:
         messages = Message.from_string_list(Message.level.error, errors)
 
-    return render_template("User/List.html", curr_user=user, is_admin=is_admin, users=users, invite_code=account.latest_invite_code, messages=messages)
+    return render_template("User/List.html", curr_user=user, user=user, is_admin=is_admin, users=users, invite_code=account.latest_invite_code, messages=messages)
