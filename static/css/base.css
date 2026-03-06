@@ -71,8 +71,8 @@ nav div a {
 }
 
 nav a:active {
-    background-color: var(--charcoal-black);
-    color: var(--main-color);
+    background-color: var(--dark-main-color);
+    color: var(--charcoal-black);
 }
 
 main {
@@ -147,8 +147,8 @@ h1 {
 }
 
 .button-submit:active {
-    background-color: var(--charcoal-black);
-    color: var(--main-color);
+    background-color: var(--dark-main-color);
+    color: var(--charcoal-black);
 }
 
 .message-container {
@@ -282,7 +282,8 @@ input[type="file"] {
         color: var(--secondary-color);
     }
         input[type="file"]::file-selector-button:active {
-            background-color: var(--charcoal-black);
+            background-color: var(--dark-main-color);
+            color: var(--charcoal-black);
         }
 
 .green-text {

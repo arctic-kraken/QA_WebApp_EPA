@@ -223,8 +223,15 @@ class StatementService:
         return date_dict
 
     def get_latest_available_date(self, date_dict):
+        if date_dict is None:
+            return None, None
+
+        if len(date_dict) == 0:
+            return None, None
+
         dict = date_dict
         ordered_dict = collections.OrderedDict(sorted(dict.items(), reverse=True))
+        print(ordered_dict)
         year = next(iter(ordered_dict))
         month = max(dict[year])
         return year, month

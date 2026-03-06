@@ -55,9 +55,12 @@ def view():
     messages = []
     viewmodel = []
     date_dict = statement_service.get_all_available_dates(app_service.get_current_account_id())
-    # print(date_dict)
+
     latest_year, latest_month = statement_service.get_latest_available_date(date_dict)
-    # print(f"m: {latest_month}, y: {latest_year}")
+    if latest_year is None or latest_month is None:
+        latest_year = 0
+        latest_month = 0
+
     currency = "GBP"
 
     selected_year = latest_year
@@ -80,9 +83,9 @@ def view():
             # print(errors)
 
     viewmodel = budget_service.get_budget_summaries_view_models(app_service.get_current_account_id(), selected_month, selected_year)
-    # print(f"m: {selected_month}, y: {selected_year}")
-    month_name = app_service.get_month_name(selected_month, selected_year)
-    # print(month_name)
+    month_name = ""
+    if latest_month > 0 and latest_year > 0:
+        month_name = app_service.get_month_name(selected_month, selected_year)
 
     return render_template("Account/View.html", viewmodel=viewmodel, currency=currency, month_name=month_name, month=selected_month, year=selected_year, date_dict=date_dict, user=user, account=account, is_admin=is_admin, messages=messages)
 
@@ -111,7 +114,3 @@ def revoke(user_id):
 
     return '', 204
 
-#
-# def edit():
-#     user_id = session["uuid"]
-#     return render_template("User/edit.html", user = db.session.get_one(User, user_id))
