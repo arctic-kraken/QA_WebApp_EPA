@@ -1,6 +1,4 @@
-# from app import app
-from flask import render_template, session, redirect, url_for
-# from flask_sqlalchemy import SQLAlchemy
+from flask import render_template, session, redirect, url_for, abort
 from flask import request
 
 from models.User import User
@@ -9,6 +7,8 @@ from models.UserAccountRole import UserAccountRole
 from models.Account import Account
 from models.Message import Message
 from services.appService import app_service
+from services.accountService import account_service
+from services.userService import user_service
 
 CONST_ERROR_LOGIN_FAIL = "User does not exist, check your username and password"
 
@@ -50,20 +50,43 @@ def login():
 
 # TODO polish this sucker
 def signup():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+    if app_service.get_current_account_id():
+        return redirect('/account/view')
 
-        # TODO validate user name is not taken
-        db.session.add(User(name=username, password=password))
-        db.session.commit()
+    if app_service.get_current_user_id():
+        return redirect('/account/select')
 
-        user = db.session.execute(db.select(User).filter_by(name=username, password=password)).scalar_one_or_none()
+    messages = []
+    messages.append(Message(Message.level.info, "Username must be between 6 and 50 characters long"))
+    messages.append(Message(Message.level.info, "Password must contain one or more upper and lower case letter, number and special character (@$!%*#?&)"))
+    messages.append(Message(Message.level.info, "Password must be between 6 and 50 characters long"))
 
-        app_service.set_current_user_id(user.id)
-        return redirect(url_for('account_bp.select'))
+    try:
+        if request.method == 'POST':
+            messages = []
+            username = request.form['username']
+            password = request.form['password']
+            confirmation = request.form['password_confirmed']
 
-    return render_template('App/Signup.html')
+            uname_is_good, uname_errors = user_service.validate_user_name(username)
+            pwd_is_good, pwd_errors = user_service.validate_password(password, confirmation)
+            if uname_is_good is False or pwd_is_good is False:
+                messages.extend(Message.from_string_list(Message.level.error, uname_errors))
+                messages.extend(Message.from_string_list(Message.level.error, pwd_errors))
+                return render_template('App/Signup.html', messages=messages)
+
+            if not user_service.create_user(username, password):
+                messages.append(Message(Message.level.error, "Failed to create user"))
+                return render_template('App/Signup.html', messages=messages)
+
+            user = user_service.get_user(username)
+            app_service.set_current_user_id(user.id)
+
+            return redirect(url_for('account_bp.select'))
+    except Exception as e:
+        print(e)
+
+    return render_template('App/Signup.html', messages=messages)
 
 def logout():
     session.clear()

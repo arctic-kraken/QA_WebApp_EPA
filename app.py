@@ -16,8 +16,8 @@ import os
 app = flask.Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mssql+pyodbc:///?odbc_connect={os.environ.get('DB_CONNECT_URL')}"
-
 app.secret_key = os.environ.get('SECRET_KEY')
+
 app.app_context().push()
 
 db.init_app(app)
