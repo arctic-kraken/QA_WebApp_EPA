@@ -60,18 +60,13 @@ class UserService:
             print(e)
             return False
 
-    def get_user(self, user_id = 0, name = None):
-        if name is not None and user_id == 0:
-            user = User.query.filter_by(name=name).first()
+    def get_user(self, user_id: int = 0, name: str = None):
+        if name is not None:
+            return User.query.filter_by(name=name).first()
         else:
-            user = User.query.filter_by(id=user_id).first()
+            return User.query.filter_by(id=user_id).first()
 
-        return user
-
-    #Conversion failed when converting the varchar value 'hahaveryfunny' to data type int. (245) (SQLExecDirectW)")
-# [SQL: SELECT TOP 1 [User].id AS [User_id], [User].name AS [User_name], [User].password AS [User_password]
-# FROM [User]
-# WHERE [User].id = ?]
-# [parameters: ('hahaveryfunny',)]
+    def check_credentials(self, username: str, password: str):
+        return User.query.filter_by(name=username, password=app_service.encrypt(password)).first()
 
 user_service = UserService()

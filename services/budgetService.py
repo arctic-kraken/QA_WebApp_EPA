@@ -5,7 +5,8 @@ from models.Account import Account
 from models.BudgetSummary import BudgetSummary
 from models.StatementTrx import StatementTrx
 from models.Statement import Statement
-
+from services.appService import app_service
+from models.Message import Message
 
 class BudgetService:
 
@@ -51,6 +52,7 @@ class BudgetService:
         return all_budgets, None
 
     def update(self, budget_id, account_id, new_name, new_limit, json_clauses):
+        errors = []
         account = Account.query.filter_by(id=account_id).first()
         if account is None:
             return False, ["Failed to get this budget for this account"]
@@ -59,10 +61,20 @@ class BudgetService:
         if budget is None:
             return False, ["Failed to get this budget for this account"]
 
-        # TODO validation
+        name_isgood, name_errors = self.validate_name(new_name)
+        limit_isgood, limit_errors = self.validate_limit(new_limit)
+        if not name_isgood or not limit_isgood:
+            errors.extend(name_errors)
+            errors.extend(limit_errors)
+            return False, errors
+
+
         try:
             clauses = json.loads(json_clauses)
-            # validation of above
+            clauses_isgood, clauses_errors = self.validate_clauses(clauses['clauses'])
+            if not clauses_isgood:
+                errors.extend(clauses_errors)
+                return False, errors
 
             budget.name = new_name
             budget.monthly_amount_limit = new_limit
@@ -74,6 +86,34 @@ class BudgetService:
             return False, [f"Failed to update this budget - {e}"]
 
         return True, None
+
+    def validate_name(self, requested_name: str):
+        errors = []
+        if not app_service.validate_user_input(requested_name):
+            errors.append(f"Budget Name {app_service.CONST_REGEX_ERROR_MSG}")
+
+        if len(requested_name) < 1 or len(requested_name) > 255:
+            errors.append(f"Budget Name must be between 1 and 255 characters long")
+
+        return True if len(errors) == 0 else False, errors if len(errors) > 0 else []
+
+    def validate_limit(self, requested_limit):
+        errors = []
+        m_float: float
+        try:
+            m_float = float(requested_limit)
+        except ValueError:
+            errors.append(f"Budget Limit must be a number")
+
+        return True if len(errors) == 0 else False, errors if len(errors) > 0 else []
+
+    def validate_clauses(self, clauses):
+        errors = []
+        for clause in clauses:
+            if not app_service.validate_user_input(clause):
+                errors.append(f"Budget Clause '{clause}' {app_service.CONST_REGEX_ERROR_MSG}")
+
+        return True if len(errors) == 0 else False, errors if len(errors) > 0 else []
 
     def delete(self, budget_id, account_id):
         account = Account.query.filter_by(id=account_id).first()

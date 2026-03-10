@@ -10,9 +10,9 @@
 
 {% block main %}
 
-<h1>Account {{ account.name }}</h1>
-
-<p>Viewing user: {{ user.name }}</p>
+<h1>Account View</h1>
+<p>For Account: {{ account.name }}</p>
+<p>Reference: {{ account.reference }}</p>
 
 {% if month > 0 and year > 0 %}
     {% include 'messageBar.html' %}

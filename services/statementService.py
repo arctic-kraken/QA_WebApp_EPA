@@ -7,6 +7,7 @@ from models.User import User
 from models.UserAccountRole import UserAccountRole
 from services.accountService import account_service
 from datetime import datetime
+from services.appService import app_service
 from models.StatementTrx import StatementTrx
 from models.Statement import Statement
 from werkzeug.datastructures import FileStorage
@@ -17,7 +18,8 @@ from collections import defaultdict
 import collections
 
 # only for debug
-import traceback
+# import traceback
+
 
 class StatementService:
     def upload_file(self, file: FileStorage, user_id: int, account_id: int):
@@ -82,7 +84,7 @@ class StatementService:
 
             return True, None
         except Exception as e:
-            return False, f"{e} - {traceback.format_exc()}"
+            return False, f"{e}" #{traceback.format_exc()}
 
     def sortTrxsByDate(self, e):
         return e.date
@@ -128,18 +130,22 @@ class StatementService:
         return statement, trxs
 
     def update_statement_name(self, statement_id, account_id, new_statement_name):
+        errors = []
         statement = Statement.query.filter_by(id=statement_id, account_id=account_id).first()
         if statement is None:
             return False
 
-        # TODO name validation
+        if not app_service.validate_user_input(new_statement_name):
+            errors.append(f'Account name {app_service.CONST_REGEX_ERROR_MSG}')
+
         if len(new_statement_name) > 255:
-            return False, ["Requested name is too long"]
+            errors.append("Requested Account Name is too long")
 
         if len(new_statement_name) < 1:
-            return False, ["Requested name is too short"]
+            errors.append("Requested Account Name is too short")
 
-        # regex here # plus return the errors
+        if len(errors) > 0:
+            return errors
 
         try:
             statement.name = new_statement_name

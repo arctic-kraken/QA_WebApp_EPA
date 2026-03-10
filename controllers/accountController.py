@@ -1,6 +1,5 @@
 from flask import render_template, get_template_attribute, session, redirect, url_for, request, abort
 from services.accountService import account_service
-from models.Currency import Currency
 from models.Message import Message
 from services.appService import app_service
 from services.budgetService import budget_service
@@ -11,25 +10,31 @@ def create():
     if user is None:
         abort(401)
 
-    currencies = Currency.query.all()
-
+    messages = []
     if request.method == "POST":
         name = request.form["account_name"]
         reference = request.form["account_reference"]
-        starting_date = request.form["starting_date"]
-        starting_balance = request.form["starting_balance"]
-        #currency_code = request.form["currency_code"]
 
-        new_acc, errors = account_service.create_account_for(user.id, name, reference, starting_date, starting_balance, "GBP")
+        aname_is_good, aname_errors = account_service.validate_account_name(name)
+        ref_is_good, ref_errors = account_service.validate_reference(reference)
+        if not aname_is_good or not ref_is_good:
+            messages.extend(Message.from_string_list(Message.level.error, aname_errors))
+            messages.extend(Message.from_string_list(Message.level.error, ref_errors))
+            return render_template("Account/Create.html", user=user, is_admin=is_admin, messages=messages)
 
+        new_acc, errors = account_service.create_account_for(user.id, name, reference)
         if errors is not None:
             messages = Message.from_string_list(Message.Level.error, errors)
-            return render_template("Account/Create.html", currencies=currencies, messages=messages)
+            return render_template("Account/Create.html", user=user, is_admin=is_admin, messages=messages)
         else:
             app_service.set_current_account_id(new_acc.id)
             return redirect("view")
 
-    return render_template("Account/Create.html", currencies=currencies, user=user, is_admin=is_admin)
+    if len(messages) == 0:
+        messages.append(Message(Message.level.info, "Account name must be between 1 and 10 characters long"))
+        messages.append(Message(Message.level.info, "Reference must be between 1 and 255 characters long"))
+
+    return render_template("Account/Create.html", user=user, is_admin=is_admin, messages=messages)
 
 def select():
     account, user, is_admin = account_service.get_account_user_role_for(app_service.get_current_user_id(), app_service.get_current_account_id())

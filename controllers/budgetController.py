@@ -6,6 +6,8 @@ from services.budgetService import budget_service
 
 from models.Message import Message
 
+import traceback
+
 def list():
     app_service.check_auth()
     account, user, is_admin = account_service.get_account_user_role_for(app_service.get_current_user_id(), app_service.get_current_account_id())
@@ -33,15 +35,17 @@ def edit(budget_id: int):
         name = request.form["name"]
         limit = request.form["limit"]
         json_clauses = request.form["clauses"]
-
-        result, errors = budget_service.update(budget_id, app_service.get_current_account_id(), name, limit, json_clauses)
-        if result is False:
-            messages = Message.from_string_list(Message.level.error, errors)
-        else:
-            messages.append(Message(Message.level.info, "Budget updated successfully"))
-            budget, clauses, errors = budget_service.get(budget_id, app_service.get_current_account_id())
-            if budget is None:
+        try:
+            result, errors = budget_service.update(budget_id, app_service.get_current_account_id(), name, limit, json_clauses)
+            if result is False:
                 messages = Message.from_string_list(Message.level.error, errors)
+            else:
+                messages.append(Message(Message.level.info, "Budget updated successfully"))
+                budget, clauses, errors = budget_service.get(budget_id, app_service.get_current_account_id())
+                if budget is None:
+                    messages = Message.from_string_list(Message.level.error, errors)
+        except Exception as e:
+            print(f"{e} {traceback.format_exc()}")
 
     return render_template("Budget/Edit.html", budget=budget, clauses=clauses, user=user, is_admin=is_admin, messages=messages)
 
