@@ -1,54 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    {% block head %}
-    <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    {% endblock %}
-</head>
-<body>
-    <nav>
-        {% block nav_bar %}
-        <div>
-                <a href="/"><div>Blow the Budget</div></a>
-        </div>
-        {% if session['uid'] %}
-            <div>
-                <a href="/account/view"><div>Account</div></a>
-                <a href="/budget/list"><div>Budgets</div></a>
-                <a href="/statement/list"><div>Statements</div></a>
-                {% if is_admin %}
-                    <a href="/user/list"><div>Users</div></a>
+    <head>
+        {% block head %}
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="icon" type="image/svg" href="{{ url_for('static', filename='imgs/btb.svg') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+        {% endblock %}
+    </head>
+    <body>
+        <nav>
+            {% block nav_bar %}
+                <div style="margin-left: 8px;">
+                    <a href="/" style="max-width: 150px; width: 150px;">
+                        <img src="{{ url_for('static', filename='imgs/btb.svg') }}" style="width: 42px; margin-right: 8px;">
+                        <div>Break the Budget</div>
+                    </a>
+                </div>
+                {% if session['uid'] and session['accid'] %}
+                    <div>
+                        <a href="/account/view"><div>Account</div></a>
+                        <a href="/budget/list"><div>Budgets</div></a>
+                        <a href="/statement/list"><div>Statements</div></a>
+                        {% if is_admin %}
+                            <a href="/user/list"><div>Users</div></a>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if is_admin %}
+                            <div class="whoami">Logged-in as Admin User: {{ user.name }}</div>
+                        {% else %}
+                            <div class="whoami">Logged-in as Regular User: {{ user.name }}</div>
+                        {% endif %}
+                        <a href="/logout"><div>Logout</div></a>
+                    </div>
+                {% else %}
+                    <div>
+                        {% if session['uid'] %}
+                            {% if is_admin %}
+                                <div class="whoami">Logged-in as Admin User: {{ user.name }}</div>
+                            {% else %}
+                                <div class="whoami">Logged-in as Regular User: {{ user.name }}</div>
+                            {% endif %}
+                            <a href="/logout"><div>Logout</div></a>
+                        {% else %}
+                            <a href="/login"><div>Login</div></a>
+                            <a href="/signup"><div>Sign-up</div></a>
+                        {% endif %}
+                    </div>
                 {% endif %}
-            </div>
-            <div>
-                <a href="/user"><div>Settings</div></a>
-                <a href="/logout">Logout</a>
-            </div>
-        {% else %}
-            <div>
-                <a href="/login"><div>Login</div></a>
-                <a href="/signup"><div>Sign-up</div></a>
-            </div>
-        {% endif %}
-
-        {% endblock %}
-    </nav>
-    <main>
-        {% block main %}
-        {% endblock %}
-    </main>
-    <footer>
-        {% block footer %}
-         <a href="https://github.com/arctic-kraken/QA_WebApp_EPA/tree/master">
-             <div class="github-link-container">
-                 <img class="github-icon filter-white">
-                 <span style="color: white; margin-left: 5px; margin-right: 5px; align-content: center;">Link to GitHub</span>
-             </div>
-
-         </a>
-        {% endblock %}
-    </footer>
-</body>
+            {% endblock %}
+        </nav>
+        <main>
+            {% block main %}
+            {% endblock %}
+        </main>
+        <footer>
+            {% block footer %}
+            <span>Author: Jakub Kiepas</span>
+             <a href="https://github.com/arctic-kraken/QA_WebApp_EPA/tree/master">
+                 <div class="github-link-container">
+                     <img class="github-icon filter-white">
+                     <span style="color: white; margin-left: 5px; margin-right: 5px; align-content: center;">Link to GitHub</span>
+                 </div>
+             </a>
+            {% endblock %}
+        </footer>
+    </body>
 </html>

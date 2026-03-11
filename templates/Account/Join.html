@@ -3,7 +3,7 @@
 
 {% block head %}
     {{ super() }}
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 {% endblock %}
 
 {% block main %}
@@ -24,7 +24,8 @@
             <form method="post" style="border-top: 1px solid black;">
                 <div class="simple-container">
                     <input class="input-text box-shadow form-item" name="invite_code" type="text" placeholder="paste your invite code here">
-                    <button class="button-submit box-shadow form-item" type="submit">Join</button>
+                    <button class="button-submit box-shadow form-item" style="font-size: large;" type="submit">Join</button>
+                    <a class="box-shadow form-item" style="font-size: small;" href="/account/select"><div>Back to Selection</div></a>
                 </div>
             </form>
         </div>

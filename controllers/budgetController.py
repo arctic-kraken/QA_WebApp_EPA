@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, url_for, request, abort
+from flask import render_template, redirect, url_for, request, abort
 
 from services.accountService import account_service
 from services.appService import app_service
@@ -15,7 +15,7 @@ def list():
     if budgets is None:
         messages = Message.from_string_list(Message.level.error, errors)
 
-    return render_template("Budget/List.html", budgets=budgets, is_admin=is_admin, messages=messages)
+    return render_template("Budget/List.html", budgets=budgets, user=user, is_admin=is_admin, messages=messages)
 
 def edit(budget_id: int):
     app_service.check_auth()
@@ -33,17 +33,19 @@ def edit(budget_id: int):
         name = request.form["name"]
         limit = request.form["limit"]
         json_clauses = request.form["clauses"]
-
-        result, errors = budget_service.update(budget_id, app_service.get_current_account_id(), name, limit, json_clauses)
-        if result is False:
-            messages = Message.from_string_list(Message.level.error, errors)
-        else:
-            messages.append(Message(Message.level.info, "Budget updated successfully"))
-            budget, clauses, errors = budget_service.get(budget_id, app_service.get_current_account_id())
-            if budget is None:
+        try:
+            result, errors = budget_service.update(budget_id, app_service.get_current_account_id(), name, limit, json_clauses)
+            if result is False:
                 messages = Message.from_string_list(Message.level.error, errors)
+            else:
+                messages.append(Message(Message.level.info, "Budget updated successfully"))
+                budget, clauses, errors = budget_service.get(budget_id, app_service.get_current_account_id())
+                if budget is None:
+                    messages = Message.from_string_list(Message.level.error, errors)
+        except Exception as e:
+            print(f"{e}")
 
-    return render_template("Budget/Edit.html", budget=budget, clauses=clauses, is_admin=is_admin, messages=messages)
+    return render_template("Budget/Edit.html", budget=budget, clauses=clauses, user=user, is_admin=is_admin, messages=messages)
 
 def create():
     app_service.check_auth()

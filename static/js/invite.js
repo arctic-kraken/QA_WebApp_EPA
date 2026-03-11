@@ -1,6 +1,6 @@
 async function getNewInviteCode() {
     clearMessages();
-    const url = `/account/newinvite`;
+    const url = `/account/new_invite`;
     try {
         const response = await fetch(url);
         if (!response.ok) {

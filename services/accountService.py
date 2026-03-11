@@ -1,22 +1,18 @@
 import uuid
 
-from sqlalchemy.sql.functions import user
-
 from db import db
 from models.Account import Account
 from models.User import User
 from uuid import uuid4
 from models.UserAccountRole import UserAccountRole
+from services.appService import app_service
 
 class AccountService:
-    def create_account_for(self, user_id, account_name, account_reference, starting_date, starting_balance, currency_code):
+    def create_account_for(self, user_id, account_name, account_reference):
         try:
             new_account = Account()
             new_account.name = account_name
             new_account.reference = account_reference
-            new_account.starting_date = starting_date
-            new_account.starting_balance = starting_balance
-            #new_account.currency_code = currency_code
 
             db.session.add(new_account)
             db.session.commit()
@@ -42,8 +38,11 @@ class AccountService:
         user = User.query.filter_by(id=user_id).first()
         account = Account.query.filter_by(id=account_id).first()
         role = UserAccountRole.query.filter_by(user_id=user.id, account_id=account_id).first()
+        is_admin = False
+        if role is not None:
+            is_admin = role.is_admin
 
-        return account, user, role.is_admin
+        return account, user, is_admin
 
     def get_new_invite_code(self, user_id, account_id):
         account, user, is_admin = self.get_account_user_role_for(user_id, account_id)
@@ -108,7 +107,6 @@ class AccountService:
         if role is None:
             return False, ["Failed to find user assigned to this account"]
 
-        # effectively cant revoke from self
         if role.is_admin:
             return False, ["Cannot revoke access to admin type account"]
 
@@ -119,6 +117,28 @@ class AccountService:
             return False, [f"Failed to revoke access - {e}"]
 
         return True, None
+
+    def validate_account_name(self, requested_name: str):
+        errors = []
+
+        if not app_service.validate_user_input(requested_name):
+            errors.append(f'Account name {app_service.CONST_REGEX_ERROR_MSG}')
+
+        if len(requested_name) < 1 or len(requested_name) > 10:
+            errors.append('Account name must be between 1 and 10 characters long')
+
+        return True if len(errors) == 0 else False, errors
+
+    def validate_reference(self, requested_reference: str):
+        errors = []
+
+        if not app_service.validate_user_input(requested_reference):
+            errors.append(f'Reference {app_service.CONST_REGEX_ERROR_MSG}')
+
+        if len(requested_reference) < 1 or len(requested_reference) > 255:
+            errors.append('Reference must be between 1 and 255 characters long')
+
+        return True if len(errors) == 0 else False, errors
 
 
 account_service = AccountService()

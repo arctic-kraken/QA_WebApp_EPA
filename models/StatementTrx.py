@@ -10,4 +10,3 @@ class StatementTrx(db.Model):
     money_in = db.Column('money_in', db.Float, nullable=True)
     money_out = db.Column('money_out', db.Float, nullable=True)
     balance = db.Column('balance', db.Float, nullable=True)
-    #budget_id = db.Column('budget_id', db.Integer, nullable=True)

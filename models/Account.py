@@ -1,5 +1,5 @@
 from db import db
-from uuid import uuid4
+
 from sqlalchemy import Sequence, Uuid
 
 class Account(db.Model):
@@ -8,11 +8,8 @@ class Account(db.Model):
     name = db.Column('name', db.String(10), nullable=False)
     reference = db.Column('reference', db.String(255), nullable=True)
     date_created = db.Column('date_created', db.DateTime, default=db.func.now(), nullable=True)
-    starting_date = db.Column('starting_date', db.DateTime, default=db.func.now(), nullable=True)
-    #current_balance = db.Column('current_balance', db.Integer, default=0)
-    currency_id = db.Column('currency_id', db.Integer, default=0)
+    currency_code = db.Column('currency_code', db.String(3), default="GBP")
     latest_invite_code = db.Column('latest_invite_code', Uuid(as_uuid=True), nullable=True)
     last_invite_created_date = db.Column('last_invite_created_date', db.DateTime, nullable=True)
 
-# TODO do account name formatting
 
