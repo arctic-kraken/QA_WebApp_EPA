@@ -61,6 +61,3 @@ with app.app_context():
         print("DB connected")
     except Exception as e:
         print(f"DB connection failed: {e}")
-
-
-
