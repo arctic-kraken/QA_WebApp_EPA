@@ -1,0 +1,84 @@
+Type,Product,Started Date,Completed Date,Description,Amount,Fee,Currency,State,Balance
+Transfer,Current,02/12/2025 18:31,02/12/2025 18:31,Pocket Withdrawal,10,0,GBP,COMPLETED,10
+Transfer,Current,02/12/2025 23:38,02/12/2025 23:38,Pocket Withdrawal,22,0,GBP,COMPLETED,32
+Topup,Current,02/12/2025 23:38,02/12/2025 23:38,Top-up by *4787,35,0,GBP,COMPLETED,67
+Transfer,Current,02/12/2025 23:40,02/12/2025 23:40,To pocket GBP Oszczędności from GBP,-0.52,0,GBP,COMPLETED,66.48
+Topup,Current,02/12/2025 23:46,02/12/2025 23:46,Top-up by *4787,10,0,GBP,COMPLETED,76.48
+Transfer,Current,02/12/2025 23:46,02/12/2025 23:46,To pocket GBP Oszczędności from GBP,-0.02,0,GBP,COMPLETED,76.46
+Transfer,Current,02/12/2025 23:47,02/12/2025 23:47,To Jakub Tomasz Kiepas,-5,0,GBP,COMPLETED,71.46
+Card Payment,Current,02/12/2025 18:31,03/12/2025 13:02,Tesco,-9.65,0,GBP,COMPLETED,61.81
+Card Payment,Current,02/12/2025 23:40,03/12/2025 16:15,dbrand,-56.74,0,GBP,COMPLETED,5.07
+Card Payment,Current,02/12/2025 23:46,04/12/2025 09:38,Amazon,-4.99,0,GBP,COMPLETED,0.08
+Transfer,Current,04/12/2025 21:01,04/12/2025 21:01,Pocket Withdrawal,4,0,GBP,COMPLETED,4.08
+Transfer,Current,05/12/2025 15:55,05/12/2025 15:55,Pocket Withdrawal,38,0,GBP,COMPLETED,42.08
+Card Payment,Current,05/12/2025 15:55,06/12/2025 11:29,Tesco,-38,0,GBP,COMPLETED,4.08
+Card Payment,Current,04/12/2025 21:01,06/12/2025 13:29,Steam,-3.43,0,GBP,COMPLETED,0.65
+Transfer,Current,07/12/2025 13:52,07/12/2025 13:52,Pocket Withdrawal,8,0,GBP,COMPLETED,8.65
+Transfer,Current,07/12/2025 13:52,07/12/2025 13:52,To pocket GBP Oszczędności from GBP,-0.42,0,GBP,COMPLETED,8.23
+Transfer,Current,08/12/2025 18:14,08/12/2025 18:14,Pocket Withdrawal,66,0,GBP,COMPLETED,74.23
+Transfer,Current,08/12/2025 18:14,08/12/2025 18:14,To pocket GBP Oszczędności from GBP,-0.52,0,GBP,COMPLETED,73.71
+Card Payment,Current,08/12/2025 18:14,09/12/2025 13:37,Tesco,-65.74,0,GBP,COMPLETED,7.97
+Card Payment,Current,07/12/2025 13:52,09/12/2025 15:24,Steam,-7.79,0,GBP,COMPLETED,0.18
+Transfer,Current,09/12/2025 17:54,09/12/2025 17:54,Pocket Withdrawal,8,0,GBP,COMPLETED,8.18
+Card Payment,Current,09/12/2025 17:55,10/12/2025 12:42,Tesco,-7.75,0,GBP,COMPLETED,0.43
+Transfer,Current,13/12/2025 13:40,13/12/2025 13:40,Pocket Withdrawal,25,0,GBP,COMPLETED,25.43
+Transfer,Current,13/12/2025 13:42,13/12/2025 13:42,Pocket Withdrawal,6,0,GBP,COMPLETED,31.43
+Transfer,Current,13/12/2025 13:42,13/12/2025 13:42,To pocket GBP Oszczędności from GBP,-0.08,0,GBP,COMPLETED,31.35
+Transfer,Current,13/12/2025 13:53,13/12/2025 13:53,To pocket GBP Oszczędności from GBP,-1.6,0,GBP,COMPLETED,29.75
+Transfer,Current,13/12/2025 17:08,13/12/2025 17:08,Pocket Withdrawal,5,0,GBP,COMPLETED,34.75
+Transfer,Current,13/12/2025 17:09,13/12/2025 17:09,To pocket GBP Oszczędności from GBP,-0.3,0,GBP,COMPLETED,34.45
+Transfer,Current,13/12/2025 18:00,13/12/2025 18:00,Pocket Withdrawal,40,0,GBP,COMPLETED,74.45
+Transfer,Current,13/12/2025 20:01,13/12/2025 20:01,Pocket Withdrawal,44,0,GBP,COMPLETED,118.45
+Transfer,Current,13/12/2025 20:01,13/12/2025 20:01,To pocket GBP Oszczędności from GBP,-1.66,0,GBP,COMPLETED,116.79
+Card Payment,Current,13/12/2025 13:42,14/12/2025 08:41,Tesco,-26.96,0,GBP,COMPLETED,89.83
+Card Payment,Current,13/12/2025 17:09,14/12/2025 13:02,RingGo,-5.85,0,GBP,COMPLETED,83.98
+Card Payment,Current,13/12/2025 18:06,14/12/2025 13:19,Imone,-39.05,0,GBP,COMPLETED,44.93
+Card Payment,Current,13/12/2025 20:01,14/12/2025 13:25,H Mart,-43.17,0,GBP,COMPLETED,1.76
+Card Payment,Current,13/12/2025 13:53,14/12/2025 13:29,Sainsbury's,-1.2,0,GBP,COMPLETED,0.56
+Transfer,Current,15/12/2025 18:11,15/12/2025 18:11,Pocket Withdrawal,38,0,GBP,COMPLETED,38.56
+Transfer,Current,15/12/2025 18:11,15/12/2025 18:11,To pocket GBP Oszczędności from GBP,-0.4,0,GBP,COMPLETED,38.16
+Transfer,Current,15/12/2025 18:21,15/12/2025 18:21,Pocket Withdrawal,15,0,GBP,COMPLETED,53.16
+Transfer,Current,15/12/2025 18:24,15/12/2025 18:24,To pocket GBP Oszczędności from GBP,-0.5,0,GBP,COMPLETED,52.66
+Transfer,Current,16/12/2025 08:34,16/12/2025 08:34,Pocket Withdrawal,1,0,GBP,COMPLETED,53.66
+Transfer,Current,16/12/2025 08:36,16/12/2025 08:36,To pocket GBP Oszczędności from GBP,-1.6,0,GBP,COMPLETED,52.06
+Card Payment,Current,15/12/2025 18:11,16/12/2025 09:44,Marks & Spencer,-37.8,0,GBP,COMPLETED,14.26
+Card Payment,Current,15/12/2025 18:24,16/12/2025 09:56,Tesco,-11.75,0,GBP,COMPLETED,2.51
+Card Payment,Current,16/12/2025 08:36,17/12/2025 10:51,Tesco,-1.2,0,GBP,COMPLETED,1.31
+Topup,Current,20/12/2025 13:00,20/12/2025 13:00,Top-up by *4787,15,0,GBP,COMPLETED,16.31
+Transfer,Current,20/12/2025 13:01,20/12/2025 13:01,Pocket Withdrawal,12,0,GBP,COMPLETED,28.31
+Transfer,Current,20/12/2025 14:25,20/12/2025 14:25,Pocket Withdrawal,10,0,GBP,COMPLETED,38.31
+Transfer,Current,20/12/2025 14:32,20/12/2025 14:32,Pocket Withdrawal,10,0,GBP,COMPLETED,48.31
+Transfer,Current,20/12/2025 14:39,20/12/2025 14:39,To pocket GBP Oszczędności from GBP,-0.8,0,GBP,COMPLETED,47.51
+Card Payment,Current,20/12/2025 14:43,21/12/2025 09:42,The Atrium,-2.5,0,GBP,COMPLETED,45.01
+Card Payment,Current,20/12/2025 14:26,21/12/2025 11:10,Alex Barber Shop,-37,0,GBP,COMPLETED,8.01
+Card Payment,Current,20/12/2025 14:38,21/12/2025 11:18,Sainsbury's,-7.6,0,GBP,COMPLETED,0.41
+Topup,Current,22/12/2025 20:36,22/12/2025 20:36,Top-up by *4787,60,0,GBP,COMPLETED,60.41
+Transfer,Current,22/12/2025 20:37,22/12/2025 20:37,To pocket GBP Oszczędności from GBP,-1.04,0,GBP,COMPLETED,59.37
+Topup,Current,23/12/2025 10:07,23/12/2025 10:07,Top-up by *4787,510,0,GBP,COMPLETED,569.37
+Transfer,Current,23/12/2025 10:07,23/12/2025 10:07,To pocket GBP Budget - Food from GBP,-350,0,GBP,COMPLETED,219.37
+Transfer,Current,23/12/2025 10:07,23/12/2025 10:07,To pocket GBP Budget - Travel from GBP,-100,0,GBP,COMPLETED,119.37
+Transfer,Current,23/12/2025 10:08,23/12/2025 10:08,To pocket GBP Subscriptions from GBP,-60,0,GBP,COMPLETED,59.37
+Transfer,Current,23/12/2025 15:03,23/12/2025 15:03,Pocket Withdrawal,28,0,GBP,COMPLETED,87.37
+Transfer,Current,23/12/2025 15:04,23/12/2025 15:04,Pocket Withdrawal,2,0,GBP,COMPLETED,89.37
+Transfer,Current,24/12/2025 12:22,24/12/2025 12:22,Pocket Withdrawal,14,0,GBP,COMPLETED,103.37
+Transfer,Current,24/12/2025 12:23,24/12/2025 12:23,To Jakub Tomasz Kiepas,-15,0,GBP,COMPLETED,88.37
+Card Payment,Current,23/12/2025 15:04,24/12/2025 12:39,Tesco,-29.1,0,GBP,COMPLETED,59.27
+Transfer,Current,24/12/2025 14:21,24/12/2025 14:21,Transfer from GRZEGORZ MARCELI KIEPAS,37,0,GBP,COMPLETED,96.27
+Transfer,Current,24/12/2025 14:22,24/12/2025 14:22,To Jakub Tomasz Kiepas,-37,0,GBP,COMPLETED,59.27
+Card Payment,Current,22/12/2025 20:37,24/12/2025 16:31,Steam,-58.48,0,GBP,COMPLETED,0.79
+Topup,Current,27/12/2025 11:04,27/12/2025 11:04,Top-up by *4787,13,0,GBP,COMPLETED,13.79
+Card Payment,Current,27/12/2025 11:05,28/12/2025 14:18,Epic Games Store,-13.38,0.13,GBP,COMPLETED,0.28
+Transfer,Current,28/12/2025 22:20,28/12/2025 22:20,Pocket Withdrawal,30,0,GBP,COMPLETED,30.28
+Transfer,Current,28/12/2025 22:20,28/12/2025 22:20,To pocket GBP Oszczędności from GBP,-1.26,0,GBP,COMPLETED,29.02
+Transfer,Current,28/12/2025 22:30,28/12/2025 22:30,To pocket GBP Oszczędności from GBP,-0.44,0,GBP,COMPLETED,28.58
+Transfer,Current,28/12/2025 22:36,28/12/2025 22:36,Pocket Withdrawal,20,0,GBP,COMPLETED,48.58
+Transfer,Current,28/12/2025 22:37,28/12/2025 22:37,To pocket GBP Oszczędności from GBP,-1.66,0,GBP,COMPLETED,46.92
+Transfer,Current,28/12/2025 22:41,28/12/2025 22:41,To pocket GBP Oszczędności from GBP,-1.66,0,GBP,COMPLETED,45.26
+Card Payment,Current,28/12/2025 22:37,29/12/2025 16:23,POLREGIO,-9.17,0.09,GBP,COMPLETED,36
+Card Payment,Current,28/12/2025 22:41,29/12/2025 16:23,POLREGIO,-9.17,0.09,GBP,COMPLETED,26.74
+Card Payment,Current,28/12/2025 22:30,29/12/2025 16:23,POLREGIO,-3.78,0.04,GBP,COMPLETED,22.92
+Card Payment,Current,28/12/2025 22:20,29/12/2025 16:30,Jak dojadę,-21.37,0.21,GBP,COMPLETED,1.34
+Transfer,Current,30/12/2025 10:20,30/12/2025 10:20,Pocket Withdrawal,10,0,GBP,COMPLETED,11.34
+Transfer,Current,30/12/2025 10:20,30/12/2025 10:20,Pocket Withdrawal,10,0,GBP,COMPLETED,21.34
+Transfer,Current,30/12/2025 10:20,30/12/2025 10:20,To pocket GBP Budget - Travel from GBP,-20,0,GBP,COMPLETED,1.34
+Transfer,Current,31/12/2025 16:30,31/12/2025 16:30,Pocket Withdrawal,40,0,GBP,COMPLETED,41.34

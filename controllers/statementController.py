@@ -21,8 +21,9 @@ def view(statement_id: int):
     if request.method == 'POST':
         name = request.form["name"]
 
-        if not statement_service.update_statement_name(statement_id, app_service.get_current_account_id(), name):
-            messages.append(Message(Message.level.error, "Failed to update statement name"))
+        update_result, update_errors = statement_service.update_statement_name(statement_id, app_service.get_current_account_id(), name)
+        if not update_result:
+            messages.extend(Message.from_string_list(Message.level.error, update_errors))
         else:
             messages.append(Message(Message.level.info, "Statement name successfully updated"))
 

@@ -127,7 +127,7 @@ class StatementService:
             return False
 
         if not app_service.validate_user_input(new_statement_name):
-            errors.append(f'Account name {app_service.CONST_REGEX_ERROR_MSG}')
+            errors.append(f'Statement name {app_service.CONST_REGEX_ERROR_MSG}')
 
         if len(new_statement_name) > 255:
             errors.append("Requested Account Name is too long")
@@ -136,7 +136,7 @@ class StatementService:
             errors.append("Requested Account Name is too short")
 
         if len(errors) > 0:
-            return errors
+            return False, errors
 
         try:
             statement.name = new_statement_name

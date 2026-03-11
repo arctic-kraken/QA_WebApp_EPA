@@ -1,7 +1,6 @@
 from flask import render_template, session, redirect, url_for
 from flask import request
 
-from models.User import User
 from db import db
 from models.UserAccountRole import UserAccountRole
 from models.Account import Account
@@ -95,9 +94,3 @@ def signup():
 def logout():
     session.clear()
     return render_template('App/Logout.html')
-
-
-def dashboard():
-    user_id = app_service.get_current_user_id()
-    user = db.session.get_one(User, user_id)
-    return render_template('App/Dashboard.html', user = user)
