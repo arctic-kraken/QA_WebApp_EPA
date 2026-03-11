@@ -1,12 +1,8 @@
-from enum import unique
-
 from db import db
 from models.Account import Account
 
-from models.User import User
-from models.UserAccountRole import UserAccountRole
-from services.accountService import account_service
 from datetime import datetime
+from services.appService import app_service
 from models.StatementTrx import StatementTrx
 from models.Statement import Statement
 from werkzeug.datastructures import FileStorage
@@ -16,8 +12,7 @@ from sqlalchemy import extract, distinct
 from collections import defaultdict
 import collections
 
-# only for debug
-import traceback
+from dateutil.parser import parse
 
 class StatementService:
     def upload_file(self, file: FileStorage, user_id: int, account_id: int):
@@ -27,12 +22,10 @@ class StatementService:
 
             new_statement = Statement()
             new_statement.account_id = account_id
-            new_statement.reference = secure_filename(file.filename)[:255]
-            # new_statement.upload_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            new_statement.upload_date = datetime.now().strftime("%d/%m/%Y %H:%M")
+            new_statement.reference = secure_filename(file.filename)[:255] if app_service.validate_user_input(file.filename) else "New Statement"
+            new_statement.upload_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             new_statement.uploaded_by_user_id = user_id
 
-            # if there is less than a header and 1 trx in the file then quit
             if len(file.stream.readlines()) < 2:
                 raise Exception("File is empty - make sure there is at least a header row and 1 transaction row")
 
@@ -45,26 +38,26 @@ class StatementService:
             trx_headers = self.map_file_headers_to_trx_headers(headers)
 
             decimal_places = 2
-            # TODO fun fact, Completed date and Balance are nullable :)
+            # fun fact, Completed date and Balance are nullable :)
             file.stream.seek(len(firstline))
             for line in file.stream.readlines():
                 cols = line.decode('utf-8')[:-2].split(',')
                 new_trx = StatementTrx()
                 new_trx.description = cols[trx_headers['Description']]
-                # TODO figure out bullet-proof date format
                 if cols[trx_headers['Date']] is not None or cols[trx_headers['Date']] == '':
-                    new_trx.date = datetime.strptime(cols[trx_headers['Date']], "%d/%m/%Y %H:%M")
+                    new_trx.date = parse(cols[trx_headers['Date']], fuzzy=False, dayfirst=True)
 
-                new_trx.balance = round(float(cols[trx_headers['Balance']]), decimal_places)
+                if cols[trx_headers['Balance']]:
+                    new_trx.balance = round(float(cols[trx_headers['Balance']]), decimal_places)
 
                 if "Amount" in headers:
                     if float(cols[headers.index("Amount")]) < 0:
-                        new_trx.money_out = round(float(cols[trx_headers['Money Out']]), decimal_places)
+                        new_trx.money_out = round(float(cols[trx_headers['Money Out']] if cols[trx_headers['Money Out']] else float(0)), decimal_places)
                     else:
-                        new_trx.money_in = round(float(cols[trx_headers['Money In']]), decimal_places)
+                        new_trx.money_in = round(float(cols[trx_headers['Money In']] if cols[trx_headers['Money In']] else float(0)), decimal_places)
                 else:
-                    new_trx.money_in = round(float(cols[trx_headers['Money In']]), decimal_places)
-                    new_trx.money_out = round(float(cols[trx_headers['Money Out']]), decimal_places)
+                    new_trx.money_in = round(float(cols[trx_headers['Money In']] if cols[trx_headers['Money In']] else float(0)), decimal_places)
+                    new_trx.money_out = round(float(cols[trx_headers['Money Out']] if cols[trx_headers['Money Out']] else float(0)), decimal_places)
 
                 trxs.append(new_trx)
 
@@ -82,14 +75,14 @@ class StatementService:
 
             return True, None
         except Exception as e:
-            return False, f"{e} - {traceback.format_exc()}"
+            return False, f"{e}" #{traceback.format_exc()}
 
     def sortTrxsByDate(self, e):
         return e.date
 
     def map_file_headers_to_trx_headers(self, header_list):
         mapped_headers: dict = {}
-        print(header_list)
+
         if "Description" in header_list:
             mapped_headers["Description"] = header_list.index("Description")
 
@@ -128,18 +121,22 @@ class StatementService:
         return statement, trxs
 
     def update_statement_name(self, statement_id, account_id, new_statement_name):
+        errors = []
         statement = Statement.query.filter_by(id=statement_id, account_id=account_id).first()
         if statement is None:
             return False
 
-        # TODO name validation
+        if not app_service.validate_user_input(new_statement_name):
+            errors.append(f'Statement name {app_service.CONST_REGEX_ERROR_MSG}')
+
         if len(new_statement_name) > 255:
-            return False, ["Requested name is too long"]
+            errors.append("Requested Account Name is too long")
 
         if len(new_statement_name) < 1:
-            return False, ["Requested name is too short"]
+            errors.append("Requested Account Name is too short")
 
-        # regex here # plus return the errors
+        if len(errors) > 0:
+            return False, errors
 
         try:
             statement.name = new_statement_name
@@ -189,10 +186,8 @@ class StatementService:
         statement.money_in_total = sum(trx.money_in for trx in trxs if trx.money_in is not None)
         statement.money_out_total = sum(trx.money_out for trx in trxs if trx.money_out is not None)
 
-        # date oldest
         trxs.sort(key=self.sortTrxsByDate)
         statement.date_oldest = trxs[0].date if 1 < len(trxs) else None
-        # date newest
         trxs.sort(reverse=True, key=self.sortTrxsByDate)
         statement.date_newest = trxs[0].date if 1 < len(trxs) else None
 
@@ -223,6 +218,12 @@ class StatementService:
         return date_dict
 
     def get_latest_available_date(self, date_dict):
+        if date_dict is None:
+            return None, None
+
+        if len(date_dict) == 0:
+            return None, None
+
         dict = date_dict
         ordered_dict = collections.OrderedDict(sorted(dict.items(), reverse=True))
         year = next(iter(ordered_dict))

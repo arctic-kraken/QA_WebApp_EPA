@@ -3,5 +3,5 @@ flask-sqlalchemy
 pyodbc
 python-dotenv
 sqlalchemy
-flask-migrate
 werkzeug
+python-dateutil

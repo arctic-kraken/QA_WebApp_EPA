@@ -3,7 +3,7 @@
 
 {% block head %}
     {{ super() }}
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 {% endblock %}
 
 {% block main %}
@@ -18,13 +18,17 @@
                                         width: 50%;">
         <div>
             <h1 style="margin: 0px 0px 10px 0px;">Create or Join an Account</h1>
+            <p>You are not assigned to an Account. You can create one where you will be an <b>Admin User</b>
+            and you will be able to invite other users via an invite code. You can also enter an invite code from
+            another User, where you will be joined to their Account as a <b>Regular User</b>.
+            </p>
         </div>
 
         <div>
             <form method="post" style="border-top: 1px solid black;">
                 <div class="simple-container">
-                    <a href="/account/create"><div>Create a new account</div></a>
-                    <a href="/account/join"><div>Join an existing account</div></a>
+                    <a class="box-shadow form-item" href="/account/create"><div>Create a new account</div></a>
+                    <a class="box-shadow form-item" href="/account/join"><div>Join an existing account</div></a>
                 </div>
             </form>
         </div>

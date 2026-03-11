@@ -12,7 +12,9 @@
 
     <h1>Account User List</h1>
 
-    <div>
+    {% include 'messageBar.html' %}
+
+    <div style="margin-bottom: 20px;">
         <span>Invite Code:</span>
         <span id="js-inviteCode">{{ invite_code }}</span>
     </div>
@@ -20,20 +22,36 @@
     <button class="button-submit box-shadow" type="button" onclick="getNewInviteCode();">Get New Invite Code</button>
     <button class="button-submit box-shadow" type="button" onclick="copyToClipboard('#js-inviteCode')">Copy Invite Code</button>
 
-    {% include 'messageBar.html' %}
-
-    <div class="table-container">
-        {% for u in users %}
-            <div class="tr">
-                <span style="width: 200px;">{{ u.name }}</span>
-                <span style="width: 50px;">{% if u.id == curr_user.id %} (You) {% endif %} </span>
-                <span> {% if u.id != curr_user.id %}
-                    <button class="bin-btn" type="button" onclick="deleteRecord('/account/revoke_access', {{ u.id }}, 'Are you sure you want to revoke access for this user?', 'Successfully revoked access', 'Failed to revoke access - ', true);">
-                        <img class="icon bin-icon filter-dark-red">
-                    </button> {% endif %}
-                </span>
-            </div>
-        {% endfor %}
+    <div class="table-noscroll" style="overflow: scroll; margin-top: 20px; max-height: 30vh; height: 30vh;">
+        <table style="width: 100%;">
+            <colgroup>
+                <col span="1" style="min-width: 20vh;">
+                <col span="1" style="min-width: 100px;">
+                <col span="1" style="min-width: 40vh;">
+            </colgroup>
+            <thead style="position: sticky; top: 0px; background-color: var(--secondary-color); text-align: left;">
+                <tr>
+                    <th>User Name</th>
+                    <th style="visibility: collapse; display: inline-block;">Button</th>
+                    <th style="visibility: collapse; display: inline-block;">Button</th>
+                </tr>
+            </thead>
+            <tbody>
+                 {% for u in users %}
+                    <tr>
+                        <td>{{ u.name }}</td>
+                        <td>{% if u.id == curr_user.id %} (You) {% endif %}</td>
+                        <td>
+                            {% if is_admin and u.id != curr_user.id %}
+                                <button class="bin-btn" type="button" onclick="deleteRecord('/account/revoke_access', {{ u.id }}, 'Are you sure you want to revoke access for this user?', 'Successfully revoked access', 'Failed to revoke access - ', true);">
+                                    <img class="icon bin-icon filter-dark-red">
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 

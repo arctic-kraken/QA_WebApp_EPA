@@ -1,0 +1,91 @@
+Type,Product,Started Date,Completed Date,Description,Amount,Fee,Currency,State,Balance
+Card Payment,Current,31/01/2026 14:39,2026-02-01 08:28:47,Pembroke Lodge,-6.7,0,GBP,COMPLETED,84.16
+Card Payment,Current,31/01/2026 14:06,2026-02-01 09:47:46,AutoTrader,-4.95,0,GBP,COMPLETED,79.21
+Card Payment,Current,31/01/2026 16:45,2026-02-01 09:52:48,Nando's,-33,0,GBP,COMPLETED,46.21
+Card Payment,Current,31/01/2026 17:27,2026-02-01 09:55:47,Nando's,-5.75,0,GBP,COMPLETED,40.46
+Card Payment,Current,31/01/2026 16:25,2026-02-01 10:33:16,RingGo,-4.7,0,GBP,COMPLETED,35.76
+Card Payment,Current,31/01/2026 13:04,2026-02-01 10:37:39,Tesco,-35.61,0,GBP,COMPLETED,0.15
+Transfer,Current,01/02/2026 15:41,2026-02-01 15:41:10,Pocket Withdrawal,5,0,GBP,COMPLETED,5.15
+Transfer,Current,01/02/2026 15:42,2026-02-01 15:42:06,Pocket Withdrawal,5,0,GBP,COMPLETED,10.15
+Topup,Current,01/02/2026 16:39,2026-02-01 16:40:02,Top-up by *4787,21,0,GBP,COMPLETED,31.15
+Transfer,Current,01/02/2026 16:59,2026-02-01 16:59:22,Pocket Withdrawal,7.25,0,GBP,COMPLETED,38.4
+Transfer,Current,01/02/2026 19:55,2026-02-01 19:55:12,Pocket Withdrawal,7,0,GBP,COMPLETED,45.4
+Card Payment,Current,01/02/2026 16:59,2026-02-02 08:32:47,Nando's,-7.25,0,GBP,COMPLETED,38.15
+Card Payment,Current,01/02/2026 15:42,2026-02-02 12:16:07,Tenpin,-10,0,GBP,COMPLETED,28.15
+Card Payment,Current,01/02/2026 16:40,2026-02-02 12:23:09,Nando's,-20.75,0,GBP,COMPLETED,7.4
+Card Payment,Current,01/02/2026 19:55,2026-02-02 12:52:00,The Atrium,-7,0,GBP,COMPLETED,0.4
+Transfer,Current,02/02/2026 14:43,2026-02-02 14:43:14,Pocket Withdrawal,74,0,GBP,COMPLETED,74.4
+Card Payment,Current,02/02/2026 14:43,2026-02-03 12:06:01,Tesco,-73.52,0,GBP,COMPLETED,0.88
+Transfer,Current,05/02/2026 18:33,2026-02-05 18:33:29,Pocket Withdrawal,8,0,GBP,COMPLETED,8.88
+Transfer,Current,05/02/2026 18:33,2026-02-05 18:33:42,To pocket GBP Oszczędności from GBP,-1.2,0,GBP,COMPLETED,7.68
+Transfer,Current,05/02/2026 19:36,2026-02-05 19:36:25,To pocket GBP Oszczędności from GBP,-1,0,GBP,COMPLETED,6.68
+Card Payment,Current,05/02/2026 19:36,2026-02-06 11:33:34,Datatek Payments Ltd,-0.5,0,GBP,COMPLETED,6.18
+Card Payment,Current,05/02/2026 18:33,2026-02-06 12:20:22,London Borough of Hammersmith & Fulham,-5.4,0,GBP,COMPLETED,0.78
+Transfer,Current,06/02/2026 12:50,2026-02-06 12:50:24,Pocket Withdrawal,40,0,GBP,COMPLETED,40.78
+Transfer,Current,06/02/2026 15:28,2026-02-06 15:28:42,To pocket GBP Budget - Travel from GBP,-3,0,GBP,COMPLETED,37.78
+Card Payment,Current,06/02/2026 12:50,2026-02-07 10:07:28,Tesco,-37.02,0,GBP,COMPLETED,0.76
+Transfer,Current,07/02/2026 14:35,2026-02-07 14:35:25,Pocket Withdrawal,30,0,GBP,COMPLETED,30.76
+Transfer,Current,07/02/2026 14:36,2026-02-07 14:36:17,To pocket GBP Oszczędności from GBP,-0.2,0,GBP,COMPLETED,30.56
+Transfer,Current,07/02/2026 17:36,2026-02-07 17:36:28,To pocket GBP Oszczędności from GBP,-0.1,0,GBP,COMPLETED,30.46
+Transfer,Current,07/02/2026 21:58,2026-02-07 21:58:41,To pocket GBP Oszczędności from GBP,-1.2,0,GBP,COMPLETED,29.26
+Card Payment,Current,07/02/2026 14:36,2026-02-08 09:27:42,Tesco,-23.9,0,GBP,COMPLETED,5.36
+Transfer,Current,08/02/2026 10:02,2026-02-08 10:02:11,Pocket Withdrawal,1,0,GBP,COMPLETED,6.36
+Card Payment,Current,07/02/2026 17:36,2026-02-08 11:51:24,AutoTrader,-4.95,0,GBP,COMPLETED,1.41
+Card Payment,Current,07/02/2026 21:58,2026-02-08 12:05:52,Hart District Council,-0.4,0,GBP,COMPLETED,1.01
+Topup,Current,08/02/2026 13:56,2026-02-08 13:56:25,Top-up by *4787,120,0,GBP,COMPLETED,121.01
+Topup,Current,08/02/2026 18:24,2026-02-08 18:24:52,Top-up by *4787,120,0,GBP,COMPLETED,241.01
+Transfer,Current,08/02/2026 18:26,2026-02-08 18:26:32,Pocket Withdrawal,1,0,GBP,COMPLETED,242.01
+Topup,Current,08/02/2026 20:14,2026-02-08 20:14:45,Top-up by *4787,1650,0,GBP,COMPLETED,1892.01
+Transfer,Current,08/02/2026 20:15,2026-02-08 20:15:14,To pocket GBP Oszczędności from GBP,-0.14,0,GBP,COMPLETED,1891.87
+Card Payment,Current,08/02/2026 10:02,2026-02-09 08:44:24,Tesco,-1,0,GBP,COMPLETED,1890.87
+Card Payment,Current,08/02/2026 20:15,2026-02-09 09:17:24,GoSkippy,-1642.93,0,GBP,COMPLETED,247.94
+Card Payment,Current,08/02/2026 18:26,2026-02-09 09:18:02,gov.uk,-121,0,GBP,COMPLETED,126.94
+Card Payment,Current,08/02/2026 13:56,2026-02-09 11:50:43,Infinity Motorcycles,-119.94,0,GBP,COMPLETED,7
+Transfer,Current,09/02/2026 22:13,2026-02-09 22:13:52,Pocket Withdrawal,38,0,GBP,COMPLETED,45
+Transfer,Current,09/02/2026 22:13,2026-02-09 22:13:57,To pocket GBP Oszczędności from GBP,-0.86,0,GBP,COMPLETED,44.14
+Card Payment,Current,09/02/2026 22:13,2026-02-10 09:39:49,Tesco,-38.57,0,GBP,COMPLETED,5.57
+Transfer,Current,10/02/2026 12:30,2026-02-10 12:30:33,Pocket Withdrawal,1,0,GBP,COMPLETED,6.57
+Transfer,Current,10/02/2026 12:37,2026-02-10 12:37:21,To pocket GBP Oszczędności from GBP,-0.2,0,GBP,COMPLETED,6.37
+Topup,Current,10/02/2026 23:16,2026-02-10 23:16:10,Top-up by *4787,36,0,GBP,COMPLETED,42.37
+Transfer,Current,10/02/2026 23:16,2026-02-10 23:16:59,To pocket GBP Oszczędności from GBP,-0.02,0,GBP,COMPLETED,42.35
+Exchange,Current,10/02/2026 23:35,2026-02-10 23:35:50,Exchanged to GBP,7.2,0,GBP,COMPLETED,49.55
+Transfer,Current,10/02/2026 23:36,2026-02-10 23:36:59,To pocket GBP Oszczędności from GBP,-0.02,0,GBP,COMPLETED,49.53
+Card Payment,Current,10/02/2026 23:16,2026-02-11 10:03:11,J&s Accessories,-35.99,0,GBP,COMPLETED,13.54
+Card Payment,Current,10/02/2026 12:37,2026-02-11 13:12:44,Tesco,-5.9,0,GBP,COMPLETED,7.64
+Card Payment,Current,10/02/2026 23:36,2026-02-12 12:43:49,Amazon,-4.99,0,GBP,COMPLETED,2.65
+Transfer,Current,12/02/2026 19:38,2026-02-12 19:38:24,Pocket Withdrawal,2,0,GBP,COMPLETED,4.65
+Transfer,Current,12/02/2026 19:39,2026-02-12 19:39:09,To pocket GBP Oszczędności from GBP,-0.6,0,GBP,COMPLETED,4.05
+Card Payment,Current,12/02/2026 19:39,2026-02-13 15:16:47,Marks & Spencer,-3.7,0,GBP,COMPLETED,0.35
+Transfer,Current,14/02/2026 13:10,2026-02-14 13:10:50,Pocket Withdrawal,3,0,GBP,COMPLETED,3.35
+Topup,Current,14/02/2026 14:33,2026-02-14 14:34:33,Top-up by *4787,290,0,GBP,COMPLETED,293.35
+Transfer,Current,14/02/2026 14:34,2026-02-14 14:34:45,To pocket GBP Oszczędności from GBP,-0.04,0,GBP,COMPLETED,293.31
+Transfer,Current,15/02/2026 05:23,2026-02-15 05:23:50,Pocket Withdrawal,2,0,GBP,COMPLETED,295.31
+Transfer,Current,15/02/2026 05:24,2026-02-15 05:24:06,Pocket Withdrawal,2,0,GBP,COMPLETED,297.31
+Card Payment,Current,14/02/2026 14:34,2026-02-15 09:59:48,Infinity Motorcycles,-289.98,0,GBP,COMPLETED,7.33
+Topup,Current,15/02/2026 19:27,2026-02-15 19:27:59,Top-up by *4787,25,0,GBP,COMPLETED,32.33
+Transfer,Current,15/02/2026 19:28,2026-02-15 19:28:30,To pocket GBP Oszczędności from GBP,-0.02,0,GBP,COMPLETED,32.31
+Card Payment,Current,15/02/2026 19:28,2026-02-16 09:56:12,Amazon,-24.99,0,GBP,COMPLETED,7.32
+Card Payment,Current,14/02/2026 13:12,2026-02-16 10:14:40,Shukrana,-2.49,0,GBP,COMPLETED,4.83
+Transfer,Current,16/02/2026 22:07,2026-02-16 22:07:27,Pocket Withdrawal,49.57,0,GBP,COMPLETED,54.4
+Transfer,Current,16/02/2026 22:12,2026-02-16 22:12:17,Pocket Withdrawal,0.2,0,GBP,COMPLETED,54.6
+Card Payment,Current,16/02/2026 22:12,2026-02-17 11:16:21,Tesco,-50.55,0,GBP,COMPLETED,4.05
+Card Payment,Current,15/02/2026 05:24,2026-02-17 14:40:39,Steam,-4,0,GBP,COMPLETED,0.05
+Topup,Current,19/02/2026 11:46,2026-02-19 11:47:01,Top-up by *4787,90,0,GBP,COMPLETED,90.05
+Transfer,Current,19/02/2026 11:47,2026-02-19 11:47:07,To pocket GBP Oszczędności from GBP,-0.02,0,GBP,COMPLETED,90.03
+Card Payment,Current,19/02/2026 11:47,2026-02-20 13:44:25,Infinity Motorcycles,-89.99,0,GBP,COMPLETED,0.04
+Transfer,Current,20/02/2026 17:34,2026-02-20 17:34:39,Pocket Withdrawal,44.68,0,GBP,COMPLETED,44.72
+Transfer,Current,20/02/2026 17:34,2026-02-20 17:34:46,Pocket Withdrawal,2,0,GBP,COMPLETED,46.72
+Card Payment,Current,20/02/2026 17:34,2026-02-21 12:56:10,Places Leisure Camberley,-46,0,GBP,COMPLETED,0.72
+Topup,Current,21/02/2026 15:17,2026-02-21 15:17:15,Top-up by *4787,26,0,GBP,COMPLETED,26.72
+Topup,Current,21/02/2026 22:47,2026-02-21 22:47:29,Top-up by *4787,10,0,GBP,COMPLETED,36.72
+Transfer,Current,21/02/2026 22:51,2026-02-21 22:51:45,To pocket GBP Oszczędności from GBP,-1.02,0,GBP,COMPLETED,35.7
+Transfer,Current,21/02/2026 23:34,2026-02-21 23:34:26,To pocket GBP Budget - Travel from GBP,-4.98,0,GBP,COMPLETED,30.72
+Transfer,Current,22/02/2026 12:32,2026-02-22 12:32:02,Pocket Withdrawal,5,0,GBP,COMPLETED,35.72
+Transfer,Current,22/02/2026 12:32,2026-02-22 12:32:12,Pocket Withdrawal,2,0,GBP,COMPLETED,37.72
+Card Payment,Current,21/02/2026 15:17,2026-02-22 15:10:34,Tesco,-25.43,0,GBP,COMPLETED,12.29
+Card Payment,Current,21/02/2026 22:51,2026-02-22 15:10:51,Tesco,-4.49,0,GBP,COMPLETED,7.8
+Card Payment,Current,21/02/2026 14:41,2026-02-22 15:28:54,Hart District Council,-0.4,0,GBP,COMPLETED,7.4
+Card Payment,Current,21/02/2026 22:29,2026-02-22 15:28:56,Hart District Council,-0.4,0,GBP,COMPLETED,7
+Topup,Current,23/02/2026 10:22,2026-02-23 10:22:46,Top-up by *4787,12,0,GBP,COMPLETED,19
+Transfer,Current,23/02/2026 10:22,2026-02-23 10:22:54,To pocket GBP Subscriptions from GBP,-12,0,GBP,COMPLETED,7
+Card Payment,Current,22/02/2026 12:33,2026-02-23 11:48:43,Taste Of Greece,-6.3,0,GBP,COMPLETED,0.7

@@ -10,7 +10,7 @@
 {% block main %}
 
     <h1>Statements</h1>
-
+    <p>Currently supporting only Revolut's "csv" statements.</p>
     <form method="post" action="" enctype="multipart/form-data">
         <input class="box-shadow" accept="text/csv" type="file" name="file">
         <button class="button-submit box-shadow form-item" type="submit">Upload Statement</button>
@@ -18,34 +18,45 @@
 
     {% include 'messageBar.html' %}
 
-    <br>
-    <div class="header-row">
-        <span style="min-width: 200px;">Reference</span>
-        <span style="min-width: 200px;">Name</span>
-        <span style="min-width: 200px;">Upload Date</span>
-        <span style="min-width: 100px;">Trx Count</span>
-        <span style="min-width: 150px;">Money In Total</span>
-        <span style="min-width: 150px;">Money Out Total</span>
-        <span style="min-width: 200px;">Oldest Trx</span>
-        <span style="min-width: 200px;">Latest Trx</span>
+    <div style="overflow: scroll; margin-top: 20px; max-height: 30vh; height: 30vh;">
+        <table style="width: 100%;">
+            <colgroup>
+                <col span="1" style="min-width: 200px">
+                <col span="1" style="min-width: 200px">
+                <col span="1" style="min-width: 200px">
+                <col span="1" style="min-width: 100px">
+                <col span="1" style="min-width: 200px">
+                <col span="1" style="min-width: 200px">
+                <col span="1" style="min-width: 200px">
+                <col span="1" style="min-width: 200px">
+            </colgroup>
+            <thead style="position: sticky; top: 0px; background-color: var(--secondary-color); text-align: left;">
+                <tr>
+                    <th>Reference</th>
+                    <th>Name</th>
+                    <th>Upload Date</th>
+                    <th>Trx Count</th>
+                    <th>Money In Total</th>
+                    <th>Money Out Total</th>
+                    <th>Oldest Trx</th>
+                    <th>Newest Trx</th>
+                </tr>
+            </thead>
+            <tbody>
+                 {% for s in statements %}
+                    <tr onclick="window.location='/statement/view/{{ s.id }}';">
+                        <td class="link">{{ s.reference }}</td>
+                        <td class="link">{{ s.name }}</td>
+                        <td class="link">{{ s.upload_date }}</td>
+                        <td class="link">{{ s.trx_count }}</td>
+                        <td class="link">{{ '%0.2f'| format(s.money_in_total|float) }}</td>
+                        <td class="link">{{ '%0.2f'| format(s.money_out_total|float) }}</td>
+                        <td class="link">{{ s.date_oldest }}</td>
+                        <td class="link">{{ s.date_newest }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-    <div class="table-container">
-        {% for s in statements %}
-            <a href="/statement/view/{{ s.id }}">
-                <div class="tr">
-                    <span style="min-width: 200px;">{{ s.reference }}</span>
-                    <span style="min-width: 200px;">{{ s.name }}</span>
-                    <span style="min-width: 200px;">{{ s.upload_date }}</span>
-                    <span style="min-width: 100px;">{{ s.trx_count }}</span>
-                    <span class="text-align-right" style="min-width: 150px;">{{ '%0.2f'| format(s.money_in_total|float) }}</span>
-                    <span class="text-align-right" style="min-width: 150px;">{{ '%0.2f'| format(s.money_out_total|float) }}</span>
-                    <span class="text-align-right" style="min-width: 200px;">{{ s.date_oldest }}</span>
-                    <span class="text-align-right" style="min-width: 200px;">{{ s.date_newest }}</span>
-
-                </div>
-            </a>
-        {% endfor %}
-    </div>
-
 
 {% endblock %}
