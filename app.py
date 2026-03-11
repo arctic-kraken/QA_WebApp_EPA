@@ -3,8 +3,6 @@ from flask import render_template
 
 from db import db
 
-from flask_migrate import Migrate
-
 from routes.app_bp import app_bp
 from routes.user_bp import user_bp
 from routes.account_bp import account_bp
@@ -22,8 +20,6 @@ app.app_context().push()
 
 db.init_app(app)
 db.create_all()
-
-# migrate = Migrate(app, db) # CONTINUE TRYING TO DO MIGRATIONS; do the live db upgrade with a production db uri
 
 app.register_blueprint(app_bp)
 app.register_blueprint(user_bp, url_prefix="/user")

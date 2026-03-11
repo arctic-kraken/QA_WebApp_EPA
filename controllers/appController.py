@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, url_for, abort
+from flask import render_template, session, redirect, url_for
 from flask import request
 
 from models.User import User
@@ -7,14 +7,13 @@ from models.UserAccountRole import UserAccountRole
 from models.Account import Account
 from models.Message import Message
 from services.appService import app_service
-from services.accountService import account_service
 from services.userService import user_service
 
 CONST_ERROR_LOGIN_FAIL = "User does not exist, check your username and password"
 
 def landing():
-    if session.get("uid") is not None:
-        return redirect(url_for('app_bp.dashboard'))
+    if app_service.get_current_user_id():
+        return redirect('/account/view')
 
     return render_template('App/Landing.html')
 
@@ -24,19 +23,26 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
+        if not app_service.validate_user_input(username):
+            messages.append(Message(Message.level.error, f"Username {app_service.CONST_REGEX_ERROR_MSG}"))
+            return render_template('App/Login.html', messages=messages)
+
+        if len(username) > 50:
+            messages.append(Message(Message.level.error, "Username must not be more than 50 characters long"))
+            return render_template('App/Login.html', messages=messages)
+
         user = user_service.check_credentials(username, password)
         if user is None:
             messages.append(Message(Message.level.error, CONST_ERROR_LOGIN_FAIL))
             return render_template('App/Login.html', messages=messages)
 
         app_service.set_current_user_id(user.id)
-        # TODO put this in a service
-        user_role = db.session.execute(db.select(UserAccountRole).filter_by(user_id=user.id)).scalar_one_or_none()
+
+        user_role = UserAccountRole.query.filter_by(user_id=user.id).first()
         if user_role is None:
             return redirect(url_for('account_bp.select'))
 
-        # TODO put this in a service
-        account = db.session.execute(db.select(Account).filter_by(id=user_role.account_id)).scalar_one_or_none()
+        account = Account.query.filter_by(id=user_role.account_id).first()
         if account is None:
             UserAccountRole.query.filter_by(id=user_role.id).delete()
             db.session.commit()
@@ -48,7 +54,6 @@ def login():
 
     return render_template('App/Login.html')
 
-# TODO polish this sucker
 def signup():
     if app_service.get_current_account_id():
         return redirect('/account/view')
@@ -82,7 +87,7 @@ def signup():
 
     if len(messages) == 0:
         messages.append(Message(Message.level.info, "Username must be between 6 and 50 characters long"))
-        messages.append(Message(Message.level.info,"Password must contain one or more upper and lower case letter, number and special character (@$!%*#?&)"))
+        messages.append(Message(Message.level.info,"Password must contain one or more upper and lower case letter, number and special character (@$!%*#?&.-)"))
         messages.append(Message(Message.level.info, "Password must be between 6 and 50 characters long"))
 
     return render_template('App/Signup.html', messages=messages)

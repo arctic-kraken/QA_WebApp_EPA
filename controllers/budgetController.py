@@ -1,12 +1,10 @@
-from flask import render_template, session, redirect, url_for, request, abort
+from flask import render_template, redirect, url_for, request, abort
 
 from services.accountService import account_service
 from services.appService import app_service
 from services.budgetService import budget_service
 
 from models.Message import Message
-
-import traceback
 
 def list():
     app_service.check_auth()
@@ -45,7 +43,7 @@ def edit(budget_id: int):
                 if budget is None:
                     messages = Message.from_string_list(Message.level.error, errors)
         except Exception as e:
-            print(f"{e} {traceback.format_exc()}")
+            print(f"{e}")
 
     return render_template("Budget/Edit.html", budget=budget, clauses=clauses, user=user, is_admin=is_admin, messages=messages)
 

@@ -1,5 +1,4 @@
-from db import db
-from flask import render_template, session, redirect, url_for, request, abort
+from flask import render_template, redirect, request, abort
 
 from services.accountService import account_service
 from services.appService import app_service
@@ -14,7 +13,6 @@ def view(statement_id: int):
         return '', 403
 
     messages = []
-    # currency = account.currency # does not exist yet
     statement, trxs = statement_service.get_statement_with_trxs(statement_id, app_service.get_current_account_id())
 
     if statement is None:

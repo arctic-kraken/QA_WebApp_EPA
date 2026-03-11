@@ -12,7 +12,9 @@
 
     <h1>Account User List</h1>
 
-    <div>
+    {% include 'messageBar.html' %}
+
+    <div style="margin-bottom: 20px;">
         <span>Invite Code:</span>
         <span id="js-inviteCode">{{ invite_code }}</span>
     </div>
@@ -20,8 +22,12 @@
     <button class="button-submit box-shadow" type="button" onclick="getNewInviteCode();">Get New Invite Code</button>
     <button class="button-submit box-shadow" type="button" onclick="copyToClipboard('#js-inviteCode')">Copy Invite Code</button>
 
-    {% include 'messageBar.html' %}
+<!--    put this in a table sim to other pages-->
 
+    <div class="header-row" style="margin-top: 20px;">
+        <span style="width: 200px;">User Name</span>
+        <span style="width: 50px;"></span>
+    </div>
     <div class="table-container">
         {% for u in users %}
             <div class="tr">

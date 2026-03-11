@@ -2,8 +2,8 @@ from flask import session, abort
 import datetime, re, hashlib, os
 
 class AppService:
-    validation_regex_pattern = r"[^\w\s@$!%*#?&]|\b(or|and|select|from|where|delete|insert)\b"
-    CONST_REGEX_ERROR_MSG = "must only contain letters, numbers and these special characters: @$!%*#?&"
+    validation_regex_pattern = r"[^\w\s@$!%*#?&.-]|\b(or|and|select|from|where|delete|insert)\b"
+    CONST_REGEX_ERROR_MSG = "must only contain letters, numbers and these special characters: @$!%*#?&.-"
 
     def get_current_user_id(self):
         return session.get("uid")

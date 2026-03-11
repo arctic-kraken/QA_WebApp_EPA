@@ -1,24 +1,13 @@
 from db import db
 
 from models.User import User
-from models.UserAccountRole import UserAccountRole
 from services.appService import app_service
 
 class UserService:
     CONST_VALIDATE_PASSWORD_REGEX = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,50}$"
 
-    def get_user_by_id(user_id):
-        user = User.query.filter_by(id=user_id).first()
-
-    # obsolete
-    def get_user_and_role_for(user_id, account_id):
-        user = User.query.filter_by(id=user_id).first()
-        role = UserAccountRole.query.filter_by(user_id=user.id, account_id=account_id).first()
-
-        return user, role.is_admin
-
     def user_name_is_taken(self, requested_user_name: str):
-        return True if User.query.filter_by(name=requested_user_name).first() is not None else False
+        return True if self.get_user(name=requested_user_name) is not None else False
 
     def validate_user_name(self, requested_user_name: str):
         errors = []

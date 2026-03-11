@@ -1,15 +1,7 @@
-from db import db
-from flask import render_template, session, redirect, url_for, request, abort
-from models.User import User
-from uuid import uuid4
+from flask import render_template, abort
 from services.appService import app_service
 from services.accountService import account_service
 from models.Message import Message
-
-# TODO either remove this or add some functionality to this page
-def edit():
-    user_id = app_service.get_current_user_id()
-    return render_template("User/edit.html", user = db.session.get_one(User, user_id))
 
 def admin_list():
     app_service.check_auth()

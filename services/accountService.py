@@ -107,7 +107,6 @@ class AccountService:
         if role is None:
             return False, ["Failed to find user assigned to this account"]
 
-        # effectively cant revoke from self
         if role.is_admin:
             return False, ["Cannot revoke access to admin type account"]
 

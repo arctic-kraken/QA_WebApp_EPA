@@ -1,4 +1,4 @@
-from flask import render_template, get_template_attribute, session, redirect, url_for, request, abort
+from flask import render_template, redirect, request, abort
 from services.accountService import account_service
 from models.Message import Message
 from services.appService import app_service
@@ -99,7 +99,7 @@ def view():
 
     return render_template("Account/View.html", viewmodel=viewmodel, currency=currency, month_name=month_name, month=selected_month, year=selected_year, date_dict=date_dict, user=user, account=account, is_admin=is_admin, messages=messages)
 
-def newinvite():
+def new_invite():
     app_service.check_auth()
     new_code = account_service.get_new_invite_code(app_service.get_current_user_id(), app_service.get_current_account_id())
     if new_code is None:

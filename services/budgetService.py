@@ -6,7 +6,6 @@ from models.BudgetSummary import BudgetSummary
 from models.StatementTrx import StatementTrx
 from models.Statement import Statement
 from services.appService import app_service
-from models.Message import Message
 
 class BudgetService:
 
@@ -67,7 +66,6 @@ class BudgetService:
             errors.extend(name_errors)
             errors.extend(limit_errors)
             return False, errors
-
 
         try:
             clauses = json.loads(json_clauses)
