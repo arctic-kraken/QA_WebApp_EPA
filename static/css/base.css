@@ -95,6 +95,12 @@ footer a {
     align-content: center;
 }
 
+footer span {
+    color: var(--secondary-color);
+    text-decoration: none;
+    align-content: center;
+}
+
 footer a:active {
     color: var(--secondary-color);
 }
