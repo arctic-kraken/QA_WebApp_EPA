@@ -39,10 +39,6 @@ jobs:
             echo HASH_SALT=${{ secrets.HASH_SALT }} >> .env
             cat .env
 
-      - name: Install dependencies
-        run: |
-            pip install -r requirements.txt
-
       - name: Build and push container image to registry
         uses: azure/container-apps-deploy-action@v2
         with:
