@@ -51,7 +51,6 @@ RUN env ACCEPT_EULA=Y apt-get install -y msodbcsql18
 #COPY requirements.txt .
 
 # COPY QA_WebApp_EPA .
-RUN pwd
 COPY .env .
 
 # Copy the ODBC configuration file into the container at the root directory
@@ -64,7 +63,7 @@ RUN odbcinst -i -s -f /odbc.ini -l
 RUN cat /etc/odbc.ini
 
 # Install Python dependencies defined in requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install -r /requirements.txt
 
 EXPOSE 443
 
