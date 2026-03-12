@@ -50,7 +50,8 @@ RUN env ACCEPT_EULA=Y apt-get install -y msodbcsql18
 # Copy the requirements file into the container at /app
 #COPY requirements.txt .
 
-COPY QA_WebApp_EPA-master .
+# COPY QA_WebApp_EPA .
+RUN pwd
 COPY .env .
 
 # Copy the ODBC configuration file into the container at the root directory
