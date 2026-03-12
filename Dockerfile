@@ -48,8 +48,8 @@ RUN apt-get update
 RUN env ACCEPT_EULA=Y apt-get install -y msodbcsql18 
 
 # Copy the requirements file into the container at /app
-#COPY requirements.txt .
 
+COPY requirements.txt .
 COPY QA_WebApp_EPA .
 COPY .env .
 
