@@ -63,7 +63,7 @@ RUN odbcinst -i -s -f /odbc.ini -l
 RUN cat /etc/odbc.ini
 
 # Install Python dependencies defined in requirements.txt
-WORKDIR /home/runner/work/QA_WebApp_EPA
+WORKDIR cd /home/runner/work/QA_WebApp_EPA
 RUN ls -l
 RUN pip install -r requirements.txt
 
