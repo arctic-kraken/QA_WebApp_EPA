@@ -5,7 +5,7 @@ ARG PYTHON_VERSION=3.14.2
 FROM python:${PYTHON_VERSION}-slim AS python-base
 
 # Set the working directory inside the container to /app
-WORKDIR /QA_WebApp_EPA-master
+WORKDIR /home/runner/work/QA_WebApp_EPA
 
 # Install essential packages and clean up to reduce image size
 RUN apt-get update && \
@@ -63,7 +63,8 @@ RUN odbcinst -i -s -f /odbc.ini -l
 RUN cat /etc/odbc.ini
 
 # Install Python dependencies defined in requirements.txt
-RUN pip install -r /home/runner/work/QA_WebApp_EPA/QA_WebApp_EPA/requirements.txt
+RUN ls -l
+RUN pip install -r requirements.txt
 
 EXPOSE 443
 
