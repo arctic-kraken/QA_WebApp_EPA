@@ -124,7 +124,7 @@ class StatementService:
         errors = []
         statement = Statement.query.filter_by(id=statement_id, account_id=account_id).first()
         if statement is None:
-            return False
+            return False, errors
 
         if not app_service.validate_user_input(new_statement_name):
             errors.append(f'Statement name {app_service.CONST_REGEX_ERROR_MSG}')
@@ -142,9 +142,9 @@ class StatementService:
             statement.name = new_statement_name
             db.session.commit()
         except Exception:
-            return False
+            return False, errors
 
-        return True
+        return True, []
 
     def delete_statement(self, statement_id, account_id):
         statement = Statement.query.filter_by(id=statement_id, account_id=account_id).first()
