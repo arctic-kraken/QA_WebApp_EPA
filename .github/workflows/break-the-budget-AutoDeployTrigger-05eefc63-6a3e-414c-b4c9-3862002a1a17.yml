@@ -16,7 +16,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: PROD
     permissions: 
       id-token: write #This is required for requesting the OIDC JWT Token
       contents: read #Required when GH token is used to authenticate with private repo
@@ -54,6 +53,7 @@ jobs:
           imageToBuild: linuxwebapp.azurecr.io/break-the-budget:${{ github.sha }}
           _buildArgumentsKey_: |
             _buildArgumentsValues_
+
 
 
 
