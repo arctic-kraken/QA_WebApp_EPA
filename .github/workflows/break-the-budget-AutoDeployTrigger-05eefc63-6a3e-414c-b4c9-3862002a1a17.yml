@@ -31,6 +31,15 @@ jobs:
           tenant-id: ${{ secrets.BREAKTHEBUDGET_AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.BREAKTHEBUDGET_AZURE_SUBSCRIPTION_ID }}
 
+      - name: Create '.env' file
+        run: |
+            pwd
+            touch .env
+            echo DB_CONNECT_URL="${{ vars.DB_CONNECT_URL }}" >> .env
+            echo SECRET_KEY=${{ vars.SECRET_KEY }} >> .env
+            echo HASH_SALT=${{ vars.HASH_SALT }} >> .env
+            cat .env
+
       - name: Build and push container image to registry
         uses: azure/container-apps-deploy-action@v2
         with:
@@ -45,5 +54,6 @@ jobs:
           imageToBuild: linuxwebapp.azurecr.io/break-the-budget:${{ github.sha }}
           _buildArgumentsKey_: |
             _buildArgumentsValues_
+
 
 
