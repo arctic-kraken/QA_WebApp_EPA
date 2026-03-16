@@ -56,5 +56,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 443
 
-#CMD ["flask", "run", "--port", "443", "--host=0.0.0.0"]
 CMD ["waitress-serve", "--host", "0.0.0.0", "--port", "443", "app:app"]

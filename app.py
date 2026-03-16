@@ -1,6 +1,5 @@
-import flask
+import flask, dotenv, logging
 from flask import render_template, request
-import dotenv
 
 from db import db
 
@@ -25,6 +24,9 @@ app.register_blueprint(account_bp, url_prefix="/account")
 app.register_blueprint(statement_bp, url_prefix="/statement")
 app.register_blueprint(budget_bp, url_prefix="/budget")
 
+logger = logging.getLogger("tdm")
+logger.setLevel(logging.INFO)
+
 @app.errorhandler(BadRequest)
 def bad_request(e: HTTPException):
     return render_template("Error/BadRequest.html"), 400
@@ -43,10 +45,12 @@ def page_not_found(e: HTTPException):
 
 @app.errorhandler(InternalServerError)
 def internal_server_error(e: HTTPException):
+    logger.error(f"INTERNAL SERVER ERROR - {e}")
     return render_template("Error/InternalServerError.html"), 500
 
 @app.errorhandler(Exception)
 def exception_handler(e: Exception):
+    logger.error(f"INTERNAL SERVER ERROR - {e}")
     return render_template("Error/Internal.html"), 500
 
 @app.errorhandler(GatewayTimeout)
@@ -55,11 +59,10 @@ def gateway_timeout(e: HTTPException):
 
 @app.before_request
 def before_request():
-    print(f"{request} : origin - {request.origin}")
+    logger.info(f"{request} : origin - {request.origin}")
 
 with app.app_context():
     try:
-        print('in context')
         db.engine.connect()
         print("DB connected")
     except Exception as e:

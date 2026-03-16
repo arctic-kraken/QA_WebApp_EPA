@@ -123,6 +123,8 @@ class BudgetService:
             return False, ["Failed to get this budget for this account"]
 
         try:
+            BudgetSummary.query.filter_by(budget_id=budget.id, account_id=account.id).delete()
+
             db.session.delete(budget)
             db.session.commit()
         except Exception as e:
