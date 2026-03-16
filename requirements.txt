@@ -5,3 +5,5 @@ python-dotenv
 sqlalchemy
 werkzeug
 python-dateutil
+pytest
+waitress
