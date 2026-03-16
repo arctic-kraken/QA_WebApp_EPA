@@ -1,5 +1,6 @@
 import flask
-from flask import render_template
+from flask import render_template, request
+import dotenv
 
 from db import db
 
@@ -9,15 +10,12 @@ from routes.account_bp import account_bp
 from routes.statement_bp import statement_bp
 from routes.budget_bp import budget_bp
 from werkzeug.exceptions import NotFound, HTTPException, Forbidden, BadRequest, GatewayTimeout, InternalServerError, Unauthorized
-import os
 
 app = flask.Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f"mssql+pyodbc:///?odbc_connect={os.environ.get('DB_CONNECT_URL')}"
-app.secret_key = os.environ.get('SECRET_KEY')
-
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mssql+pyodbc:///?odbc_connect={dotenv.get_key(".env", "DB_CONNECT_URL")}"
+app.secret_key = dotenv.get_key(".env", "SECRET_KEY")
 app.app_context().push()
-
 db.init_app(app)
 db.create_all()
 
@@ -55,9 +53,15 @@ def exception_handler(e: Exception):
 def gateway_timeout(e: HTTPException):
     return render_template("Error/GatewayTimeout.html"), 504
 
+@app.before_request
+def before_request():
+    print(f"{request} : origin - {request.origin}")
+
 with app.app_context():
     try:
+        print('in context')
         db.engine.connect()
         print("DB connected")
     except Exception as e:
         print(f"DB connection failed: {e}")
+
