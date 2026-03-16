@@ -15,3 +15,5 @@ test_config = Config(
     secret_key=dotenv.get_key("test.env", "SECRET_KEY"),
     hash_salt=dotenv.get_key("test.env", "HASH_SALT")
 )
+
+prod_config = Config

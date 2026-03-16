@@ -9,13 +9,14 @@ from routes.account_bp import account_bp
 from routes.statement_bp import statement_bp
 from routes.budget_bp import budget_bp
 from werkzeug.exceptions import NotFound, HTTPException, Forbidden, BadRequest, GatewayTimeout, InternalServerError, Unauthorized
-from config import Config
+from config import prod_config
 
-def create_app(config=Config):
+def create_app(config=prod_config):
     app = flask.Flask(__name__)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = f"mssql+pyodbc:///?odbc_connect={config.db_url}"
     app.secret_key = config.secret_key
+    app.config['HASH_SALT'] = config.hash_salt
     app.app_context().push()
     db.init_app(app)
     db.create_all()
@@ -59,9 +60,10 @@ def create_app(config=Config):
     def gateway_timeout(e: HTTPException):
         return render_template("Error/GatewayTimeout.html"), 504
 
-    @app.before_request
-    def before_request():
-        logger.info(f"{request} : origin - {request.origin}")
+    @app.after_request
+    def after_request(response):
+        logger.info(f"{request} : origin - {request.origin} - {response.status_code}")
+        return response
 
     with app.app_context():
         try:
@@ -70,3 +72,6 @@ def create_app(config=Config):
         except Exception as e:
             print(f"DB connection failed: {e}")
 
+    return app
+
+app = create_app()

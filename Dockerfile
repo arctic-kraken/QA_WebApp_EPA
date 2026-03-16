@@ -54,6 +54,8 @@ RUN cat /etc/odbc.ini
 # Install Python dependencies defined in requirements.txt
 RUN pip install -r requirements.txt
 
+RUN pytest @tests/tests_to_run.txt
+
 EXPOSE 443
 
 CMD ["waitress-serve", "--host", "0.0.0.0", "--port", "443", "app:app"]
