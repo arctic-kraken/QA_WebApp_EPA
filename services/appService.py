@@ -1,5 +1,5 @@
 from flask import session, abort
-import datetime, re, hashlib, os
+import datetime, re, hashlib, dotenv
 
 class AppService:
     validation_regex_pattern = r"[^\w\s@$!%*#?&.-]|\b(or|and|select|from|where|delete|insert)\b"
@@ -33,7 +33,7 @@ class AppService:
         return True if re.search(pattern, user_input, flags=re.I|re.M) is None else False
 
     def encrypt(self, text: str) -> str:
-        return hashlib.sha256(f"{text}{os.environ.get('HASH_SALT')}".encode("utf8")).hexdigest()
+        return hashlib.sha256(f"{text}{dotenv.get_key(".env", "HASH_SALT")}".encode("utf8")).hexdigest()
 
 
 app_service = AppService()
