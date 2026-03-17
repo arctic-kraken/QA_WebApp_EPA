@@ -10,10 +10,11 @@ class Config:
         self.secret_key = secret_key
         self.hash_salt = hash_salt
 
-test_config = Config(
-    db_url=dotenv.get_key("test.env", "DB_CONNECT_URL"),
-    secret_key=dotenv.get_key("test.env", "SECRET_KEY"),
-    hash_salt=dotenv.get_key("test.env", "HASH_SALT")
-)
+if dotenv.find_dotenv("test.env") != "":
+    test_config = Config(
+        db_url=dotenv.get_key("test.env", "DB_CONNECT_URL"),
+        secret_key=dotenv.get_key("test.env", "SECRET_KEY"),
+        hash_salt=dotenv.get_key("test.env", "HASH_SALT")
+    )
 
 prod_config = Config

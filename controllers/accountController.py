@@ -28,7 +28,7 @@ def create():
             return render_template("Account/Create.html", user=user, is_admin=is_admin, messages=messages)
         else:
             app_service.set_current_account_id(new_acc.id)
-            return redirect("view")
+            return redirect("/account/view")
 
     if len(messages) == 0:
         messages.append(Message(Message.level.info, "Account name must be between 1 and 10 characters long"))
@@ -56,7 +56,7 @@ def join():
             messages = Message.from_string_list(Message.Level.error, errors)
         else:
             app_service.set_current_account_id(acc_id)
-            return redirect("view")
+            return redirect("/account/view")
     return render_template("Account/Join.html", user=user, is_admin=is_admin, messages=messages)
 
 def view():
@@ -105,7 +105,7 @@ def new_invite():
     if new_code is None:
         abort(401)
 
-    return f"{new_code}"
+    return f"{new_code}", 200
 
 def revoke(user_id):
     app_service.check_auth()

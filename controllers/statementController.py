@@ -28,6 +28,9 @@ def view(statement_id: int):
             messages.append(Message(Message.level.info, "Statement name successfully updated"))
 
     if request.method == 'DELETE':
+        if is_admin is False:
+            abort(401)
+
         if not statement_service.delete_statement(statement_id, app_service.get_current_account_id()):
             messages.append(Message(Message.level.error, "Failed to delete statement"))
         else:
@@ -58,8 +61,7 @@ def list():
 
 def delete_trx(trx_id: int):
     app_service.check_auth()
-    account, curr_user, is_admin = account_service.get_account_user_role_for(app_service.get_current_user_id(),
-                                                                             app_service.get_current_account_id())
+    account, curr_user, is_admin = account_service.get_account_user_role_for(app_service.get_current_user_id(), app_service.get_current_account_id())
     if is_admin is False:
         abort(401)
 
