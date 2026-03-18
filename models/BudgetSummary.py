@@ -10,5 +10,3 @@ class BudgetSummary(db.Model):
     year = db.Column(db.Integer, nullable=False)
     total_money_in = db.Column(db.Float, nullable=True)
     total_money_out = db.Column(db.Float, nullable=True)
-    latest_balance = db.Column(db.Float, nullable=True)
-    starting_balance = db.Column(db.Float, nullable=True)

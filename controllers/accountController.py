@@ -86,15 +86,19 @@ def view():
         if should_recalc is True:
             result, errors = budget_service.calc_all_budget_summaries(app_service.get_current_account_id(), month, year)
             if result is False:
-                messages = Message.from_string_list(Message.Level.error, errors)
+                messages = Message.from_string_list(Message.level.error, errors)
 
-        selected_year = int(year)
-        selected_month = int(month)
-            # print(errors)
+        try:
+            selected_year = int(year)
+            selected_month = int(month)
+        except Exception:
+            messages.append(Message(Message.level.error, "Date sent is in an incorrect format"))
+            selected_year = 0
+            selected_month = 0
 
     viewmodel = budget_service.get_budget_summaries_view_models(app_service.get_current_account_id(), selected_month, selected_year)
     month_name = ""
-    if latest_month > 0 and latest_year > 0:
+    if selected_month > 0 and selected_year > 0:
         month_name = app_service.get_month_name(selected_month, selected_year)
 
     return render_template("Account/View.html", viewmodel=viewmodel, currency=currency, month_name=month_name, month=selected_month, year=selected_year, date_dict=date_dict, user=user, account=account, is_admin=is_admin, messages=messages)

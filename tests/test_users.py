@@ -18,7 +18,7 @@ def test_access_to_user_list(client):
     assert response.request.path == '/user/list'
 
 def test_revoke_access(client):
-    # revoke_access/int endpoint is triggered from a javascript fetch,
+    # revoke_access/int endpoint is triggered from a JavaScript fetch,
     # it does not return a template, but refreshes the page after successful delete
     admin_user = user_service.get_user(name="test_user_admin")
     basic_user = user_service.get_user(name="test_user_basic")
@@ -83,10 +83,11 @@ def test_invite(client, captured_templates):
     assert response.request.path == '/account/join'
 
     assert len(captured_templates) == 5
-    template, context = captured_templates[4]
-    assert "messages" in context
-    assert len(context['messages']) == 1
-    assert "Invalid Invite Code" in context['messages'][0].content
+    check_last_captured_messages(
+        captured_templates,
+        ["Invalid Invite Code"],
+        check_len=True
+    )
 
     response = client.post(
         '/account/join',

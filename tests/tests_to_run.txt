@@ -1,3 +1,5 @@
 tests/test_app.py
 tests/test_users.py
 tests/test_statements.py
+tests/test_budgets.py
+tests/test_account.py

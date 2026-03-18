@@ -68,7 +68,6 @@ def delete(budget_id: int):
 
     result, errors = budget_service.delete(budget_id, app_service.get_current_account_id())
     if result is False:
-        print(errors)
         return errors, 405
 
     return '', 204

@@ -21,6 +21,19 @@ jobs:
       contents: read #Required when GH token is used to authenticate with private repo
 
     steps:
+      - name: Create 'test.env' file
+        run: |
+          touch test.env
+          echo DB_CONNECT_URL="${{ secrets.TEST_DB_CONNECT_URL }}" >> test.env
+          echo SECRET_KEY="test_secret" >> test.env
+          echo HASH_SALT="test hash" >> test.env
+          cat test.env
+
+      - name: Run Unit Tests
+        run: |
+          pip install requirements.txt
+          pytest -r @tests/tests_to_run.txt
+
       - name: Checkout to the branch
         uses: actions/checkout@v2
 
@@ -53,10 +66,3 @@ jobs:
           imageToBuild: linuxwebapp.azurecr.io/break-the-budget:${{ github.sha }}
           _buildArgumentsKey_: |
             _buildArgumentsValues_
-
-
-
-
-
-
-

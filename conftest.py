@@ -1,4 +1,5 @@
-import pytest, datetime
+import pytest, datetime, os
+from pathlib import Path
 from app import create_app
 from db import db
 from config import test_config
@@ -100,6 +101,7 @@ def logout(client):
     assert app_service.get_current_account_id() is None
 
 def import_statement(client, filepath: str, filename: str):
+    filepath = Path(f"{Path.cwd()}{filepath}")
     with open(filepath, 'rb') as file:
         response = client.post(
             '/statement/list',
@@ -110,3 +112,45 @@ def import_statement(client, filepath: str, filename: str):
 
     assert response.status_code == 200
     assert response.request.path == '/statement/list'
+
+def create_budget(client) -> int:
+    response = client.get(
+        '/budget/create',
+        follow_redirects=True
+    )
+    assert response.status_code == 200
+    assert '/budget/edit/' in response.request.path
+
+    return int(response.request.path.replace('/budget/edit/', ''))
+
+def update_budget(client, id: int, name, limit, clauses):
+    response = client.post(
+        f"/budget/edit/{id}",
+        data=dict(name=name, limit=limit, clauses=clauses),
+        follow_redirects=True
+    )
+    assert response.status_code == 200
+    assert response.request.path == '/budget/edit/1'
+
+def check_last_captured_messages(captured_templates, message_content_list=None, message_level_list=None, check_len=False):
+    _, context = captured_templates[len(captured_templates) - 1]
+    assert "messages" in context
+    if check_len:
+        if message_content_list is not None:
+            assert len(context['messages']) == len(message_content_list)
+
+        if message_level_list is not None:
+            assert len(context['messages']) == len(message_level_list)
+
+    if message_content_list is not None:
+        assert len(context['messages']) > 0
+        for i in range(0, len(message_content_list)):
+            assert message_content_list[i] in context['messages'][i].content
+
+    if message_level_list is not None:
+        assert len(context['messages']) > 0
+        for i in range(0, len(message_level_list)):
+            assert context['messages'][i].level == message_level_list[i]
+
+    if message_content_list is None and message_level_list is None:
+        assert len(context['messages']) == 0

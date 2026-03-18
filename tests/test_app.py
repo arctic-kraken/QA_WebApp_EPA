@@ -23,12 +23,11 @@ def test_signup(client, captured_templates):
     assert app_service.get_current_user_id() is None
     assert response.request.path == '/signup'
     assert len(captured_templates) == 2
-    template, context = captured_templates[1]
-    assert "messages" in context
-    assert len(context['messages']) == 3
-    assert context["messages"][0].level == Message.level.error
-    assert context["messages"][1].level == Message.level.error
-    assert context["messages"][2].level == Message.level.error
+    check_last_captured_messages(
+        captured_templates,
+        message_level_list=[Message.level.error, Message.level.error, Message.level.error],
+        check_len=True
+    )
 
     # Try signing up and creating an account
     response = client.get('/signup')
@@ -36,11 +35,11 @@ def test_signup(client, captured_templates):
     assert app_service.get_current_user_id() is None
     assert response.request.path == '/signup'
     assert len(captured_templates) == 3
-    template, context = captured_templates[2]
-    assert "messages" in context
-    assert context["messages"][0].level == Message.level.info
-    assert context["messages"][1].level == Message.level.info
-    assert context["messages"][2].level == Message.level.info
+    check_last_captured_messages(
+        captured_templates,
+        message_level_list=[Message.level.info, Message.level.info, Message.level.info],
+        check_len=True
+    )
 
     response = client.post(
         '/signup',
@@ -98,10 +97,11 @@ def test_login(client, captured_templates):
     assert app_service.get_current_account_id() is None
     assert response.request.path == '/login'
     assert len(captured_templates) == 4
-    template, context = captured_templates[3]
-    assert "messages" in context
-    assert len(context['messages']) == 1
-    assert app_service.CONST_REGEX_ERROR_MSG in context['messages'][0].content
+    check_last_captured_messages(
+        captured_templates,
+        [app_service.CONST_REGEX_ERROR_MSG],
+        check_len=True
+    )
 
     client.get('/logout')
     assert app_service.get_current_user_id() is None
@@ -117,10 +117,11 @@ def test_login(client, captured_templates):
     assert app_service.get_current_account_id() is None
     assert response.request.path == '/login'
     assert len(captured_templates) == 6
-    template, context = captured_templates[5]
-    assert "messages" in context
-    assert len(context['messages']) == 1
-    assert CONST_ERROR_LOGIN_FAIL in context['messages'][0].content
+    check_last_captured_messages(
+        captured_templates,
+        [CONST_ERROR_LOGIN_FAIL],
+        check_len=True
+    )
 
 def test_encryption(client):
     text = 'Testing123$'

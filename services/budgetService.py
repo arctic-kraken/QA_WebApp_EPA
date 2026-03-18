@@ -75,7 +75,7 @@ class BudgetService:
                 return False, errors
 
             budget.name = new_name
-            budget.monthly_amount_limit = new_limit
+            budget.monthly_amount_limit = float(new_limit)
             budget.capture_clause_json = json.dumps(clauses)
 
             db.session.commit()
@@ -98,9 +98,12 @@ class BudgetService:
     def validate_limit(self, requested_limit):
         errors = []
         m_float: float
+        if "NaN" in requested_limit:
+            errors.append("Invalid float value")
+
         try:
             m_float = float(requested_limit)
-        except ValueError:
+        except Exception:
             errors.append(f"Budget Limit must be a number")
 
         return True if len(errors) == 0 else False, errors if len(errors) > 0 else []
@@ -132,7 +135,7 @@ class BudgetService:
 
         return True, None
 
-    def calculate_monthly_budget_summary(self, account_id: int, budget_id: int, month: int, year: int):
+    def calculate_monthly_budget_summary(self, account_id: int, budget_id: int, month, year):
         account = Account.query.filter_by(id=account_id).first()
         if account is None:
             return False, ["Failed to get this budget for this account"]
@@ -141,14 +144,14 @@ class BudgetService:
         if budget is None:
             return False, errors
 
-        year_in_next_month = year
-        next_month = int(month) + int(1)
-        if next_month > 12:
-            year_in_next_month = int(year) + int(1)
-            next_month = 1
-
         update = True
         try:
+            year_in_next_month = year
+            next_month = int(month) + int(1)
+            if next_month > 12:
+                year_in_next_month = int(year) + int(1)
+                next_month = 1
+
             summary = BudgetSummary.query.filter_by(budget_id=budget.id, account_id=account.id, month_no=month, year=year).first()
             if summary is None:
                 update = False
@@ -179,7 +182,7 @@ class BudgetService:
 
         return True, []
 
-    def calc_all_budget_summaries(self, account_id: int, month: int, year: int):
+    def calc_all_budget_summaries(self, account_id: int, month, year):
         account = Account.query.filter_by(id=account_id).first()
         if account is None:
             return False, ["Failed to get calculate summaries for this account"]
