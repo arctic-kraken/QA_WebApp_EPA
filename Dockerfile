@@ -55,7 +55,7 @@ RUN cat /etc/odbc.ini
 RUN pip install -r requirements.txt
 
 # Run unit tests before deployment
-CMD ["pytest", "-r", "@tests/tests_to_run.txt"]
+RUN pytest -r @tests/tests_to_run.txt
 
 EXPOSE 443
 
