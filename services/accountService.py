@@ -44,6 +44,13 @@ class AccountService:
 
         return account, user, is_admin
 
+    def get_account_for(self, user_id):
+        user = User.query.filter_by(id=user_id).first()
+        role = UserAccountRole.query.filter_by(user_id=user.id).first()
+        account = Account.query.filter_by(id=role.account_id).first()
+
+        return account
+
     def get_new_invite_code(self, user_id, account_id):
         account, user, is_admin = self.get_account_user_role_for(user_id, account_id)
         if is_admin is False:

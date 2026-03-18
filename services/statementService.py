@@ -45,7 +45,7 @@ class StatementService:
                 new_trx = StatementTrx()
                 new_trx.description = cols[trx_headers['Description']]
                 if cols[trx_headers['Date']] is not None or cols[trx_headers['Date']] == '':
-                    new_trx.date = parse(cols[trx_headers['Date']], fuzzy=False, dayfirst=True)
+                    new_trx.date = parse(cols[trx_headers['Date']], fuzzy=False)
 
                 if cols[trx_headers['Balance']]:
                     new_trx.balance = round(float(cols[trx_headers['Balance']]), decimal_places)
