@@ -1,7 +1,7 @@
 from conftest import *
 from models.StatementTrx import StatementTrx
 from models.Statement import Statement
-import datetime
+import datetime, time
 
 from services.accountService import account_service
 from services.statementService import statement_service
@@ -192,7 +192,9 @@ def test_available_dates(client):
     login_as(client, 'test_user_basic', 'Testing123$')
 
     import_statement(client, "/data/current_acc_trxs.csv", 'test_feb26.csv')
+    time.sleep(5)
     import_statement(client, "/data/jan26statement.csv", 'test_jan26.csv')
+    time.sleep(5)
     import_statement(client, "/data/dec_25_statement.csv", 'test_dec25.csv')
 
     dates = statement_service.get_all_available_dates(account.id)
