@@ -28,7 +28,7 @@ def create():
             return render_template("Account/Create.html", user=user, is_admin=is_admin, messages=messages)
         else:
             app_service.set_current_account_id(new_acc.id)
-            return redirect("view")
+            return redirect("/account/view")
 
     if len(messages) == 0:
         messages.append(Message(Message.level.info, "Account name must be between 1 and 10 characters long"))
@@ -56,7 +56,7 @@ def join():
             messages = Message.from_string_list(Message.Level.error, errors)
         else:
             app_service.set_current_account_id(acc_id)
-            return redirect("view")
+            return redirect("/account/view")
     return render_template("Account/Join.html", user=user, is_admin=is_admin, messages=messages)
 
 def view():
@@ -86,15 +86,19 @@ def view():
         if should_recalc is True:
             result, errors = budget_service.calc_all_budget_summaries(app_service.get_current_account_id(), month, year)
             if result is False:
-                messages = Message.from_string_list(Message.Level.error, errors)
+                messages = Message.from_string_list(Message.level.error, errors)
 
-        selected_year = int(year)
-        selected_month = int(month)
-            # print(errors)
+        try:
+            selected_year = int(year)
+            selected_month = int(month)
+        except Exception:
+            messages.append(Message(Message.level.error, "Date sent is in an incorrect format"))
+            selected_year = 0
+            selected_month = 0
 
     viewmodel = budget_service.get_budget_summaries_view_models(app_service.get_current_account_id(), selected_month, selected_year)
     month_name = ""
-    if latest_month > 0 and latest_year > 0:
+    if selected_month > 0 and selected_year > 0:
         month_name = app_service.get_month_name(selected_month, selected_year)
 
     return render_template("Account/View.html", viewmodel=viewmodel, currency=currency, month_name=month_name, month=selected_month, year=selected_year, date_dict=date_dict, user=user, account=account, is_admin=is_admin, messages=messages)
@@ -105,7 +109,7 @@ def new_invite():
     if new_code is None:
         abort(401)
 
-    return f"{new_code}"
+    return f"{new_code}", 200
 
 def revoke(user_id):
     app_service.check_auth()
