@@ -213,7 +213,6 @@ def test_available_dates(client):
     assert latest_available_year == 2026
     assert latest_available_month == 2
 
-# TODO make unit tests run before waitress serves the website in the dockerfile
 
 
 
