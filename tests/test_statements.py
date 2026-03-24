@@ -192,9 +192,7 @@ def test_available_dates(client):
     login_as(client, 'test_user_basic', 'Testing123$')
 
     import_statement(client, "/data/current_acc_trxs.csv", 'test_feb26.csv')
-    # time.sleep(15)
-    # import_statement(client, "/data/jan26statement.csv", 'test_jan26.csv')
-    # time.sleep(15)
+    import_statement(client, "/data/jan26statement.csv", 'test_jan26.csv')
     import_statement(client, "/data/dec_25_statement.csv", 'test_dec25.csv')
 
     dates = statement_service.get_all_available_dates(account.id)
@@ -206,9 +204,9 @@ def test_available_dates(client):
     assert dates[2025][0] == 12
 
     assert 2026 in keys
-    assert len(dates[2026]) == 1
-    assert dates[2026][0] == 2
-    # assert dates[2026][1] == 2
+    assert len(dates[2026]) == 2
+    assert dates[2026][0] == 1
+    assert dates[2026][1] == 2
 
     latest_available_year, latest_available_month = statement_service.get_latest_available_date(dates)
 
