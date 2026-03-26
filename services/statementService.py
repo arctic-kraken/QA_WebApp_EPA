@@ -38,7 +38,7 @@ class StatementService:
             trx_headers = self.map_file_headers_to_trx_headers(headers)
 
             decimal_places = 2
-            # fun fact, Completed date and Balance are nullable :)
+            # Completed date and Balance are nullable
             file.stream.seek(len(firstline))
             for line in file.stream.readlines():
                 cols = line.decode('utf-8')[:-2].split(',')
@@ -152,6 +152,7 @@ class StatementService:
             return False
 
         try:
+            StatementTrx.query.filter_by(statement_id=statement_id).delete()
             db.session.delete(statement)
             db.session.commit()
         except Exception:

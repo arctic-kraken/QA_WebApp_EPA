@@ -54,10 +54,6 @@ RUN cat /etc/odbc.ini
 # Install Python dependencies defined in requirements.txt
 RUN pip install -r requirements.txt
 
-## Run unit tests before deployment
-#RUN pytest -r @tests/tests_to_run.txt
-# commented out due to Azure charging me for the Unit Test Database
-
 EXPOSE 443
 
 CMD ["waitress-serve", "--host", "0.0.0.0", "--port", "443", "app:app"]
