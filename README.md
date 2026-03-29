@@ -2,10 +2,12 @@
 ### my EPA web application for the Software Engineering & Agile module.
 
 ---
+
 To run the application, first open your browser of choice and navigate to https://breakthebudget.org. 
 You will be greeted on the landing page. In the top right corner of the page, there is a “Login” button, 
 press it, and it will take you to the appropriate “Login” page. Enter the below credentials from the table below
 into the username and password on the page and press “Log in”. 
+
 ---
 These credentials are for a user with 
 admin privileges.
@@ -14,6 +16,7 @@ admin privileges.
 |-----------|-----------|
 | QAadmin1! | QAadmin1! |
 ---
+
 Navigate to the Statement List page via the “Statements” button in the navigation bar in the top area of the page. 
 From the GitHub repository, download one of the three “.csv” files found in the “data” folder and then press the “Choose file” button. 
 Choose the downloaded “.csv” file, click “OK” and then press the “Upload Statement” button. On the page, 
@@ -39,6 +42,7 @@ To complete the process as a different user, press the “Logout” button in th
 and choose to log in with the second pair of credentials provided in the table below.
 
 ---
+
 These credentials are for a user with 
 basic privileges.
 
