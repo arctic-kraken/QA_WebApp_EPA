@@ -41,25 +41,37 @@ class StatementService:
             # Completed date and Balance are nullable
             file.stream.seek(len(firstline))
             for line in file.stream.readlines():
-                cols = line.decode('utf-8')[:-2].split(',')
-                new_trx = StatementTrx()
-                new_trx.description = cols[trx_headers['Description']]
-                if cols[trx_headers['Date']] is not None or cols[trx_headers['Date']] == '':
-                    new_trx.date = parse(cols[trx_headers['Date']], fuzzy=False)
+                try:
+                    cols = line.decode('utf-8')[:-2].split(',')
+                    new_trx = StatementTrx()
+                    new_trx.description = cols[trx_headers['Description']]
+                    if cols[trx_headers['Date']] is not None and cols[trx_headers['Date']] != '':
+                        new_trx.date = parse(cols[trx_headers['Date']], fuzzy=False)
 
-                if cols[trx_headers['Balance']]:
-                    new_trx.balance = round(float(cols[trx_headers['Balance']]), decimal_places)
+                    if cols[trx_headers['Balance']]:
+                        new_trx.balance = round(float(cols[trx_headers['Balance']]), decimal_places)
 
-                if "Amount" in headers:
-                    if float(cols[headers.index("Amount")]) < 0:
-                        new_trx.money_out = round(float(cols[trx_headers['Money Out']] if cols[trx_headers['Money Out']] else float(0)), decimal_places)
+                    if "Amount" in headers:
+                        if float(cols[headers.index("Amount")]) < 0:
+                            new_trx.money_out = round(
+                                float(cols[trx_headers['Money Out']] if cols[trx_headers['Money Out']] else float(0)),
+                                decimal_places)
+                        else:
+                            new_trx.money_in = round(
+                                float(cols[trx_headers['Money In']] if cols[trx_headers['Money In']] else float(0)),
+                                decimal_places)
                     else:
-                        new_trx.money_in = round(float(cols[trx_headers['Money In']] if cols[trx_headers['Money In']] else float(0)), decimal_places)
-                else:
-                    new_trx.money_in = round(float(cols[trx_headers['Money In']] if cols[trx_headers['Money In']] else float(0)), decimal_places)
-                    new_trx.money_out = round(float(cols[trx_headers['Money Out']] if cols[trx_headers['Money Out']] else float(0)), decimal_places)
+                        new_trx.money_in = round(
+                            float(cols[trx_headers['Money In']] if cols[trx_headers['Money In']] else float(0)),
+                            decimal_places)
+                        new_trx.money_out = round(
+                            float(cols[trx_headers['Money Out']] if cols[trx_headers['Money Out']] else float(0)),
+                            decimal_places)
 
-                trxs.append(new_trx)
+                    trxs.append(new_trx)
+                # if an exception occurs reading one line, just don't import it
+                except Exception:
+                    continue
 
             new_statement, trxs = self.calculate_statement_totals(new_statement, trxs)
 
@@ -75,7 +87,7 @@ class StatementService:
 
             return True, None
         except Exception as e:
-            return False, f"{e}" #{traceback.format_exc()}
+            return False, f"{e}"
 
     def sortTrxsByDate(self, e):
         return e.date
